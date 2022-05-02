@@ -9,6 +9,7 @@ import {
 } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
+import SortBar from './components/SortBar';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -46,6 +47,7 @@ function App() {
     <div className="App">
       <GlobalStyles />
       <Header />
+      <SortBar />
       <Card posts={posts} />
     </div>
   );
