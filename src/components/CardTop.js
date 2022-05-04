@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { Button } from './styles/Button.styled';
+import { StyledCardTop } from './styles/Card.styled';
 
 const CardTop = ({ author, date, subName }) => {
   const [relativeTime, setRelativeTime] = useState(null);
@@ -13,12 +15,14 @@ const CardTop = ({ author, date, subName }) => {
   }, []);
 
   return (
-    <div>
-      <p>{subName}</p>
+    <StyledCardTop>
+      <h5>r/{subName}</h5>
+      <span> . </span>
       <p>
         Posted by u/{author} {relativeTime} ago
       </p>
-    </div>
+      <Button>Join</Button>
+    </StyledCardTop>
   );
 };
 

@@ -1,10 +1,16 @@
+import { StyledCardSidebar } from './styles/Card.styled';
+
 const CardSidebar = ({ votes }) => {
   return (
-    <div>
-      <i className="las la-caret-up"></i>
+    <StyledCardSidebar>
+      <button>
+        <i className="las la-caret-up"></i>
+      </button>
       <p>{votes}</p>
-      <i className="las la-caret-down"></i>
-    </div>
+      <button>
+        <i className="las la-caret-down"></i>
+      </button>
+    </StyledCardSidebar>
   );
 };
 
