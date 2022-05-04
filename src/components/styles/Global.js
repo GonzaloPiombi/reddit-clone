@@ -10,6 +10,10 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Jost', sans-serif;
     margin: 0;    
   }
+
+  p {
+    margin: 0;
+  }
 `;
 
 export default GlobalStyles;
