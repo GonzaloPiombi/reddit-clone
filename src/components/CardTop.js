@@ -17,7 +17,9 @@ const CardTop = ({ author, date, subName }) => {
   return (
     <StyledCardTop>
       <h5>r/{subName}</h5>
-      <span> . </span>
+      <div>
+        <span>.</span>
+      </div>
       <p>
         Posted by u/{author} {relativeTime} ago
       </p>

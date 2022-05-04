@@ -4,6 +4,7 @@ const StyledCard = styled.div`
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   margin: 0 auto 10px;
@@ -11,6 +12,12 @@ const StyledCard = styled.div`
   padding-left: 40px;
   position: relative;
   width: 650px;
+
+  & h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 2px 10px;
+  }
 
   &:hover {
     border: 1px solid #9f9f9f;
@@ -56,15 +63,34 @@ const StyledCardTop = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 10px;
+  padding: 0 10px;
 
   & h5 {
     margin: 0;
   }
 
+  & p {
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
+  & > div {
+    display: inline;
+  }
+
+  & span {
+    font-weight: 300;
+    margin: 0 5px;
+    vertical-align: super;
+  }
+
   & button {
+    font-size: 0.9rem;
+    min-width: 50px;
+    padding: 2px 12px;
     position: absolute;
-    right: 0;
+    top: 4px;
+    right: 7px;
   }
 `;
 
