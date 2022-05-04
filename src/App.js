@@ -10,9 +10,11 @@ import {
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
+import SignUp from './components/SignUp';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [signUp, setSignUp] = useState(false);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -43,10 +45,15 @@ function App() {
     getPosts();
   }, []);
 
+  const showSignUpForm = () => {
+    setSignUp(!signUp);
+  };
+
   return (
     <div className="App">
       <GlobalStyles />
-      <Header />
+      <Header showSignUpForm={showSignUpForm} />
+      {signUp && <SignUp showSignUpForm={showSignUpForm} />}
       <SortBar />
       <Card posts={posts} />
     </div>
