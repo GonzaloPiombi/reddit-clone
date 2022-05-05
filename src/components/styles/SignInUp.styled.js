@@ -40,6 +40,10 @@ const StyledSignInUp = styled.div`
     outline: none;
   }
 
+  & form button {
+    padding: 10px 0;
+  }
+
   & .close-button {
     background: none;
     border: none;
