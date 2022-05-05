@@ -7,7 +7,7 @@ const Header = (props) => {
       <Nav>
         <Logo src="./images/reddit-logo.png" alt="logo" />
         <ButtonContainer>
-          <AltButton>Log In</AltButton>
+          <AltButton onClick={props.showSignInForm}>Log In</AltButton>
           <Button onClick={props.showSignUpForm}>Sign Up</Button>
         </ButtonContainer>
       </Nav>
