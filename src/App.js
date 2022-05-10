@@ -7,6 +7,7 @@ import {
   getDoc,
   doc,
 } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
@@ -17,6 +18,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
+  const auth = getAuth();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -59,7 +61,7 @@ function App() {
     <div className="App">
       <GlobalStyles />
       <Header showSignUpForm={showSignUpForm} showSignInForm={showSignInForm} />
-      {signUp && <SignUp showSignUpForm={showSignUpForm} />}
+      {signUp && <SignUp showSignUpForm={showSignUpForm} auth={auth} />}
       {signIn && <SignIn showSignInForm={showSignInForm} />}
       <SortBar />
       <Card posts={posts} />
