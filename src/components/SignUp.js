@@ -1,8 +1,30 @@
 import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
+import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
 
 const SignUp = (props) => {
+  const signUp = async (e) => {
+    try {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const username = e.target.username.value;
+      const userCred = await createUserWithEmailAndPassword(
+        props.auth,
+        email,
+        password
+      );
+      e.target.reset();
+      await updateProfile(userCred.user, {
+        displayName: username,
+      });
+      console.log(userCred);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Modal>
       <StyledSignInUp>
@@ -11,7 +33,7 @@ const SignUp = (props) => {
         </div>
         <div>
           <h3>Sign up</h3>
-          <form>
+          <form onSubmit={signUp}>
             <label htmlFor="username">CHOOSE A USERNAME</label>
             <input required type="text" id="username" name="username" />
             <label htmlFor="email">EMAIL</label>
