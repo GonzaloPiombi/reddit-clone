@@ -20,6 +20,7 @@ const SignUp = (props) => {
         displayName: username,
       });
       console.log(userCred);
+      props.signIn(email, password);
     } catch (error) {
       console.log(error.message);
     }

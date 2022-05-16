@@ -7,7 +7,7 @@ import {
   getDoc,
   doc,
 } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
@@ -18,6 +18,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const auth = getAuth();
 
   useEffect(() => {
@@ -49,6 +50,15 @@ function App() {
     getPosts();
   }, []);
 
+  const signUserIn = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsSignedIn(true);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const showSignUpForm = () => {
     setSignUp(!signUp);
   };
@@ -60,8 +70,18 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
-      <Header showSignUpForm={showSignUpForm} showSignInForm={showSignInForm} />
-      {signUp && <SignUp showSignUpForm={showSignUpForm} auth={auth} />}
+      <Header
+        showSignUpForm={showSignUpForm}
+        showSignInForm={showSignInForm}
+        isSignedIn={isSignedIn}
+      />
+      {signUp && (
+        <SignUp
+          showSignUpForm={showSignUpForm}
+          auth={auth}
+          signIn={signUserIn}
+        />
+      )}
       {signIn && <SignIn showSignInForm={showSignInForm} />}
       <SortBar />
       <Card posts={posts} />
