@@ -50,7 +50,6 @@ const SignUp = (props) => {
       setIsLoading(true);
 
       const username = e.target.username.value;
-      const user = props.auth.currentUser;
 
       //Get the db and the users collection.
       const db = getFirestore();
@@ -62,30 +61,37 @@ const SignUp = (props) => {
         return doc.data().username === username;
       });
 
-      if (repeatedUsername) {
-        console.log('Repeated');
-        e.target.firstChild.textContent = 'USERNAME IS TAKEN';
-        e.target.username.classList.add('error');
-      } else if (username.length > 24) {
-        e.target.firstChild.textContent =
-          'USERNAME SHOULD BE SHORTER THAN 24 CHARACTERS';
-        e.target.username.classList.add('error');
-      } else {
-        //Add the username to the db.
-        e.target.firstChild.textContent = '';
-        e.target.username.classList.add('valid');
-        await setDoc(doc(db, 'users', user.uid), {
-          username: username,
-        });
-        await updateProfile(user, {
-          displayName: username,
-        });
-        props.signIn(e);
-        props.showSignUpForm();
-      }
+      await handleUsername(e.target, db, repeatedUsername, username);
+
+      props.signIn(e);
+      props.showSignUpForm();
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
+    }
+  };
+
+  const handleUsername = async (form, db, repeatedUsername, username) => {
+    const user = props.auth.currentUser;
+
+    if (repeatedUsername) {
+      console.log('Repeated');
+      form.firstChild.textContent = 'USERNAME IS TAKEN';
+      form.username.classList.add('error');
+    } else if (username.length > 24) {
+      form.firstChild.textContent =
+        'USERNAME SHOULD BE SHORTER THAN 24 CHARACTERS';
+      form.username.classList.add('error');
+    } else {
+      //Add the username to the db.
+      form.firstChild.textContent = '';
+      form.username.classList.add('valid');
+      await setDoc(doc(db, 'users', user.uid), {
+        username: username,
+      });
+      await updateProfile(user, {
+        displayName: username,
+      });
     }
   };
 
