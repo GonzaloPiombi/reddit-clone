@@ -35,7 +35,7 @@ const SignUp = (props) => {
       e.preventDefault();
       const username = e.target.username.value;
 
-      //Get the db and create a new document on the users collection.
+      //Get the db and the users collection.
       const db = getFirestore();
       const colRef = collection(db, 'users');
       const documents = await getDocs(colRef);
