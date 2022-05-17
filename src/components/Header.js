@@ -7,15 +7,13 @@ const Header = (props) => {
     <StyledHeader>
       <Nav>
         <Logo src="./images/reddit-logo.png" alt="logo" />
-        <ButtonContainer>
-          {!props.isSignedIn && (
+        {!props.isSignedIn && (
+          <ButtonContainer>
             <AltButton onClick={props.showSignInForm}>Log In</AltButton>
-          )}
-          {!props.isSignedIn && (
             <Button onClick={props.showSignUpForm}>Sign Up</Button>
-          )}
-          {props.isSignedIn && <UserButton />}
-        </ButtonContainer>
+          </ButtonContainer>
+        )}
+        {props.isSignedIn && <UserButton user={props.user} />}
       </Nav>
     </StyledHeader>
   );
