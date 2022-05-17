@@ -19,6 +19,7 @@ function App() {
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
   const auth = getAuth();
 
   useEffect(() => {
@@ -52,7 +53,13 @@ function App() {
 
   const signUserIn = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      if (!auth.currentUser) {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+      setCurrentUser({
+        displayName: auth.currentUser.displayName,
+        avatar: auth.currentUser.photoURL,
+      });
       setIsSignedIn(true);
     } catch (error) {
       console.log(error.message);
@@ -74,6 +81,7 @@ function App() {
         showSignUpForm={showSignUpForm}
         showSignInForm={showSignInForm}
         isSignedIn={isSignedIn}
+        user={currentUser}
       />
       {signUp && (
         <SignUp
