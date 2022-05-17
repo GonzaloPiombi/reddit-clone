@@ -3,7 +3,13 @@ import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import { getFirestore, collection, getDocs, addDoc } from '@firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+} from '@firebase/firestore';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -34,6 +40,7 @@ const SignUp = (props) => {
     try {
       e.preventDefault();
       const username = e.target.username.value;
+      const user = props.auth.currentUser;
 
       //Get the db and the users collection.
       const db = getFirestore();
@@ -49,18 +56,21 @@ const SignUp = (props) => {
         console.log('Repeated');
         e.target.firstChild.textContent = 'USERNAME IS TAKEN';
         e.target.username.classList.add('error');
+      } else if (username.length > 24) {
+        e.target.firstChild.textContent =
+          'USERNAME SHOULD BE SHORTER THAN 24 CHARACTERS';
+        e.target.username.classList.add('error');
       } else {
         //Add the username to the db.
         e.target.firstChild.textContent = '';
         e.target.username.classList.add('valid');
-        addDoc(colRef, {
+        await setDoc(doc(db, 'users', user.uid), {
           username: username,
         });
-        const user = props.auth.currentUser;
         await updateProfile(user, {
           displayName: username,
         });
-        props.signIn();
+        props.signIn(e);
         props.showSignUpForm();
       }
     } catch (error) {
