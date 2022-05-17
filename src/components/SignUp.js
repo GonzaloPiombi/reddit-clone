@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
+import Loader from './Loader';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import {
   getFirestore,
@@ -13,10 +14,14 @@ import {
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const signUp = async (e) => {
     try {
       e.preventDefault();
+      //Activate loader
+      setIsLoading(true);
+
       const email = e.target.email.value;
       const password = e.target.password.value;
       const userCred = await createUserWithEmailAndPassword(
@@ -31,7 +36,9 @@ const SignUp = (props) => {
         displayName: 'anonymous',
       });
       setIsSignedUp(true);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };
@@ -39,6 +46,9 @@ const SignUp = (props) => {
   const changeUsername = async (e) => {
     try {
       e.preventDefault();
+      //Activate Loader.
+      setIsLoading(true);
+
       const username = e.target.username.value;
       const user = props.auth.currentUser;
 
@@ -74,6 +84,7 @@ const SignUp = (props) => {
         props.showSignUpForm();
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error.message);
     }
   };
@@ -92,14 +103,14 @@ const SignUp = (props) => {
               <input required type="email" id="email" name="email" />
               <label htmlFor="password">PASSWORD</label>
               <input required type="password" id="password" name="password" />
-              <Button type="submit">Sign Up</Button>
+              {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
             </form>
           )}
           {isSignedUp && (
             <form onSubmit={changeUsername}>
               <label htmlFor="username">CHOOSE A USERNAME</label>
               <input required type="text" id="username" name="username" />
-              <Button type="submit">Sign Up</Button>
+              {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
             </form>
           )}
         </div>
