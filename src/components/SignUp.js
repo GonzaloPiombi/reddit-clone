@@ -3,6 +3,7 @@ import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
+import { getFirestore, collection, getDocs, addDoc } from '@firebase/firestore';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -30,13 +31,41 @@ const SignUp = (props) => {
   };
 
   const changeUsername = async (e) => {
-    e.preventDefault();
-    const username = e.target.username.value;
-    const user = props.auth.currentUser;
-    await updateProfile(user, {
-      displayName: username,
-    });
-    props.signIn();
+    try {
+      e.preventDefault();
+      const username = e.target.username.value;
+
+      //Get the db and create a new document on the users collection.
+      const db = getFirestore();
+      const colRef = collection(db, 'users');
+      const documents = await getDocs(colRef);
+
+      //Go through all the usernames and return if one is repeated.
+      const repeatedUsername = documents.docs.find((doc) => {
+        return doc.data().username === username;
+      });
+
+      if (repeatedUsername) {
+        console.log('Repeated');
+        e.target.firstChild.textContent = 'USERNAME IS TAKEN';
+        e.target.username.classList.add('error');
+      } else {
+        //Add the user to the db.
+        e.target.firstChild.textContent = '';
+        e.target.username.classList.add('valid');
+        addDoc(colRef, {
+          username: username,
+        });
+        const user = props.auth.currentUser;
+        await updateProfile(user, {
+          displayName: username,
+        });
+        props.signIn();
+        props.showSignUpForm();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
