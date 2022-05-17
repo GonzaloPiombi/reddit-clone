@@ -54,6 +54,14 @@ const StyledSignInUp = styled.div`
     top: 5px;
     right: 5px;
   }
+
+  & .error {
+    border-color: red;
+  }
+
+  & .valid {
+    border-color: green;
+  }
 `;
 
 export { StyledSignInUp };
