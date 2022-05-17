@@ -50,7 +50,7 @@ const SignUp = (props) => {
         e.target.firstChild.textContent = 'USERNAME IS TAKEN';
         e.target.username.classList.add('error');
       } else {
-        //Add the user to the db.
+        //Add the username to the db.
         e.target.firstChild.textContent = '';
         e.target.username.classList.add('valid');
         addDoc(colRef, {
