@@ -19,12 +19,6 @@ const StyledSignInUp = styled.div`
     margin-left: 30px;
   }
 
-  & form {
-    display: flex;
-    flex-direction: column;
-    width: 280px;
-  }
-
   & form button {
     padding: 10px 0;
   }
