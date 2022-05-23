@@ -13,7 +13,7 @@ const Header = (props) => {
             <Button onClick={props.showSignUpForm}>Sign Up</Button>
           </ButtonContainer>
         )}
-        {props.isSignedIn && <UserButton user={props.user} />}
+        {props.isSignedIn && <UserButton user={props.auth.currentUser} />}
       </Nav>
     </StyledHeader>
   );

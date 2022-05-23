@@ -19,7 +19,6 @@ function App() {
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const auth = getAuth();
 
   useEffect(() => {
@@ -51,16 +50,14 @@ function App() {
     getPosts();
   }, []);
 
-  const signUserIn = async (email, password) => {
+  const signUserIn = async (e, email, password) => {
+    e.preventDefault();
     try {
       if (!auth.currentUser) {
         await signInWithEmailAndPassword(auth, email, password);
       }
-      setCurrentUser({
-        displayName: auth.currentUser.displayName,
-        avatar: auth.currentUser.photoURL,
-      });
       setIsSignedIn(true);
+      setSignIn(false);
     } catch (error) {
       console.log(error.message);
     }
@@ -81,7 +78,7 @@ function App() {
         showSignUpForm={showSignUpForm}
         showSignInForm={showSignInForm}
         isSignedIn={isSignedIn}
-        user={currentUser}
+        auth={auth}
       />
       {signUp && (
         <SignUp
@@ -90,7 +87,7 @@ function App() {
           signIn={signUserIn}
         />
       )}
-      {signIn && <SignIn showSignInForm={showSignInForm} />}
+      {signIn && <SignIn showSignInForm={showSignInForm} signIn={signUserIn} />}
       <SortBar />
       <Card posts={posts} />
     </div>
