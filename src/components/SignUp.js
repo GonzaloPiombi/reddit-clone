@@ -64,7 +64,6 @@ const SignUp = (props) => {
       await handleUsername(e.target, db, repeatedUsername, username);
 
       props.signIn(e);
-      props.showSignUpForm();
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
@@ -78,10 +77,12 @@ const SignUp = (props) => {
       console.log('Repeated');
       form.firstChild.textContent = 'USERNAME IS TAKEN';
       form.username.classList.add('error');
+      setIsLoading(false);
     } else if (username.length > 24) {
       form.firstChild.textContent =
         'USERNAME SHOULD BE SHORTER THAN 24 CHARACTERS';
       form.username.classList.add('error');
+      setIsLoading(false);
     } else {
       //Add the username to the db.
       form.firstChild.textContent = '';
@@ -92,6 +93,7 @@ const SignUp = (props) => {
       await updateProfile(user, {
         displayName: username,
       });
+      props.showSignUpForm();
     }
   };
 
