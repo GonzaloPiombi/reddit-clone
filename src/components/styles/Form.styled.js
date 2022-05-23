@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+`;
+
 const Input = styled.input`
   background-color: #fcfcfb;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -15,4 +21,4 @@ const Label = styled.label`
   font-size: 0.9rem;
 `;
 
-export { Input, Label };
+export { Form, Input, Label };
