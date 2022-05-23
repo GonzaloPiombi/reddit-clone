@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { StyledHeader, Nav, Logo } from './styles/Header.styled';
 import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 import UserButton from './UserButton.js';
+import ProfileMenu from './ProfileMenu';
 
 const Header = (props) => {
+  const [isUserButtonClicked, setIsUserButtonClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsUserButtonClicked(!isUserButtonClicked);
+  };
+
   return (
     <StyledHeader>
       <Nav>
@@ -13,7 +21,13 @@ const Header = (props) => {
             <Button onClick={props.showSignUpForm}>Sign Up</Button>
           </ButtonContainer>
         )}
-        {props.isSignedIn && <UserButton user={props.auth.currentUser} />}
+        {props.isSignedIn && (
+          <UserButton
+            onButtonClick={handleClick}
+            user={props.auth.currentUser}
+          />
+        )}
+        {isUserButtonClicked && <ProfileMenu />}
       </Nav>
     </StyledHeader>
   );
