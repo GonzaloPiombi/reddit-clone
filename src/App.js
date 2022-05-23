@@ -13,6 +13,8 @@ import Card from './components/Card';
 import SortBar from './components/SortBar';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import Profile from './components/Profile';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -72,25 +74,39 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <GlobalStyles />
-      <Header
-        showSignUpForm={showSignUpForm}
-        showSignInForm={showSignInForm}
-        isSignedIn={isSignedIn}
-        auth={auth}
-      />
-      {signUp && (
-        <SignUp
+    <BrowserRouter>
+      <div className="App">
+        <GlobalStyles />
+        <Header
           showSignUpForm={showSignUpForm}
+          showSignInForm={showSignInForm}
+          isSignedIn={isSignedIn}
           auth={auth}
-          signIn={signUserIn}
         />
-      )}
-      {signIn && <SignIn showSignInForm={showSignInForm} signIn={signUserIn} />}
-      <SortBar />
-      <Card posts={posts} />
-    </div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SortBar />
+                <Card posts={posts} />
+              </>
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+        {signUp && (
+          <SignUp
+            showSignUpForm={showSignUpForm}
+            auth={auth}
+            signIn={signUserIn}
+          />
+        )}
+        {signIn && (
+          <SignIn showSignInForm={showSignInForm} signIn={signUserIn} />
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 
