@@ -25,21 +25,6 @@ const StyledSignInUp = styled.div`
     width: 280px;
   }
 
-  & label {
-    color: #525252;
-    font-size: 0.9rem;
-  }
-
-  & input {
-    background-color: #fcfcfb;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    font-size: 1rem;
-    height: 40px;
-    margin-bottom: 10px;
-    outline: none;
-  }
-
   & form button {
     padding: 10px 0;
   }
