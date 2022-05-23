@@ -11,7 +11,7 @@ import {
   setDoc,
   doc,
 } from '@firebase/firestore';
-import { Input, Label } from './styles/Input.styled';
+import { Form, Input, Label } from './styles/Form.styled';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -107,20 +107,20 @@ const SignUp = (props) => {
         <div>
           <h3>Sign up</h3>
           {!isSignedUp && (
-            <form onSubmit={signUp}>
+            <Form onSubmit={signUp}>
               <Label htmlFor="email">EMAIL</Label>
               <Input required type="email" id="email" name="email" />
               <Label htmlFor="password">PASSWORD</Label>
               <Input required type="password" id="password" name="password" />
               {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
-            </form>
+            </Form>
           )}
           {isSignedUp && (
-            <form onSubmit={changeUsername}>
+            <Form onSubmit={changeUsername}>
               <Label htmlFor="username">CHOOSE A USERNAME</Label>
               <Input required type="text" id="username" name="username" />
               {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
-            </form>
+            </Form>
           )}
         </div>
         <div>
