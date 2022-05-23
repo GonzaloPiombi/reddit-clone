@@ -1,7 +1,20 @@
 import styled from 'styled-components';
 
+const StyledProfile = styled.div`
+  background-color: #fff;
+  margin: 75px auto 0;
+  max-width: 80vw;
+  padding: 10px 20px;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+  }
+`;
+
 const StyledProfileMenu = styled.div`
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   display: flex;
@@ -37,4 +50,4 @@ const StyledProfileMenu = styled.div`
   }
 `;
 
-export { StyledProfileMenu };
+export { StyledProfile, StyledProfileMenu };
