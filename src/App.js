@@ -7,7 +7,13 @@ import {
   getDoc,
   doc,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
@@ -21,6 +27,7 @@ function App() {
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [currentUsername, setCurrentUsername] = useState('');
   const auth = getAuth();
 
   useEffect(() => {
@@ -52,10 +59,26 @@ function App() {
     getPosts();
   }, []);
 
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        setIsSignedIn(true);
+        setCurrentUsername(user.displayName);
+      } else {
+        setIsSignedIn(false);
+        setCurrentUsername('');
+      }
+    });
+
+    return () => unsub();
+  });
+
   const signUserIn = async (e, email, password) => {
     e.preventDefault();
     try {
       if (!auth.currentUser) {
+        await setPersistence(auth, browserSessionPersistence);
         await signInWithEmailAndPassword(auth, email, password);
       }
       setIsSignedIn(true);
@@ -73,6 +96,10 @@ function App() {
     setSignIn(!signIn);
   };
 
+  const setUsername = (username) => {
+    setCurrentUsername(username);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -81,7 +108,7 @@ function App() {
           showSignUpForm={showSignUpForm}
           showSignInForm={showSignInForm}
           isSignedIn={isSignedIn}
-          auth={auth}
+          user={currentUsername}
         />
         <Routes>
           <Route
@@ -93,7 +120,16 @@ function App() {
               </>
             }
           />
-          <Route path="/profile" element={<Profile auth={auth} />} />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                auth={auth}
+                username={currentUsername}
+                handleUsernameChange={setUsername}
+              />
+            }
+          />
         </Routes>
         {signUp && (
           <SignUp
