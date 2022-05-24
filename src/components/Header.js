@@ -3,6 +3,7 @@ import { StyledHeader, Nav, Logo } from './styles/Header.styled';
 import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 import UserButton from './UserButton.js';
 import ProfileMenu from './ProfileMenu';
+import { Link } from 'react-router-dom';
 
 const Header = (props) => {
   const [isUserButtonClicked, setIsUserButtonClicked] = useState(false);
@@ -14,7 +15,9 @@ const Header = (props) => {
   return (
     <StyledHeader>
       <Nav>
-        <Logo src="./images/reddit-logo.png" alt="logo" />
+        <Link to="/">
+          <Logo src="./images/reddit-logo.png" alt="logo" />
+        </Link>
         {!props.isSignedIn && (
           <ButtonContainer>
             <AltButton onClick={props.showSignInForm}>Log In</AltButton>
