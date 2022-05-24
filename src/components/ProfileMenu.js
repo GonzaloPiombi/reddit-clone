@@ -22,6 +22,7 @@ const ProfileMenu = (props) => {
             textDecoration: 'none',
             color: 'inherit',
             display: 'inherit',
+            width: '100%',
           }}
         >
           <i className="las la-user-circle"></i>
