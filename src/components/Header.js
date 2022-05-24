@@ -22,10 +22,7 @@ const Header = (props) => {
           </ButtonContainer>
         )}
         {props.isSignedIn && (
-          <UserButton
-            onButtonClick={handleClick}
-            user={props.auth.currentUser}
-          />
+          <UserButton onButtonClick={handleClick} user={props.user} />
         )}
         {isUserButtonClicked && <ProfileMenu />}
       </Nav>
