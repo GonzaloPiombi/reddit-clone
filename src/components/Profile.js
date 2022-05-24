@@ -21,6 +21,7 @@ const Profile = (props) => {
     if (!hasUsernameChanged) {
       setIsLoading(false);
     } else {
+      props.handleUsernameChange(e.target.username.value);
       navigate('/');
     }
   };
