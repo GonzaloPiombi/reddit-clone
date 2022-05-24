@@ -1,10 +1,21 @@
 import { StyledProfileMenu } from './styles/Profile.styled';
 import { Link } from 'react-router-dom';
+import { getAuth, signOut } from '@firebase/auth';
+import { useNavigate } from 'react-router';
 
-const ProfileMenu = () => {
+const ProfileMenu = (props) => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    props.onButtonClick();
+    const auth = getAuth();
+    signOut(auth);
+    navigate('/');
+  };
+
   return (
     <StyledProfileMenu>
-      <button>
+      <button onClick={props.onButtonClick}>
         <Link
           to="/profile"
           style={{
@@ -17,7 +28,7 @@ const ProfileMenu = () => {
           <p>Profile</p>
         </Link>
       </button>
-      <button>
+      <button onClick={logout}>
         <i className="las la-sign-out-alt"></i>
         <p>Logout</p>
       </button>

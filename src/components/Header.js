@@ -27,7 +27,7 @@ const Header = (props) => {
         {props.isSignedIn && (
           <UserButton onButtonClick={handleClick} user={props.user} />
         )}
-        {isUserButtonClicked && <ProfileMenu />}
+        {isUserButtonClicked && <ProfileMenu onButtonClick={handleClick} />}
       </Nav>
     </StyledHeader>
   );
