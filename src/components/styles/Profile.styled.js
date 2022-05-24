@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 const StyledProfile = styled.div`
   background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   margin: 75px auto 0;
   max-width: 80vw;
   padding: 10px 20px;
