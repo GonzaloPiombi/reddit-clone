@@ -4,6 +4,14 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 280px;
+
+  & .error {
+    border-color: red;
+  }
+
+  & .valid {
+    border-color: green;
+  }
 `;
 
 const Input = styled.input`
