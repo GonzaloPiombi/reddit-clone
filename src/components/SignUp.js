@@ -4,14 +4,8 @@ import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
 import Loader from './Loader';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-} from '@firebase/firestore';
 import { Form, Input, Label } from './styles/Form.styled';
+import { changeUsername } from '../helpers/helpers';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
@@ -44,57 +38,27 @@ const SignUp = (props) => {
     }
   };
 
-  const changeUsername = async (e) => {
+  const setUsername = async (e) => {
     try {
       e.preventDefault();
       //Activate Loader.
       setIsLoading(true);
-
       const username = e.target.username.value;
 
-      //Get the db and the users collection.
-      const db = getFirestore();
-      const colRef = collection(db, 'users');
-      const documents = await getDocs(colRef);
-
-      //Go through all the usernames and return if one is repeated.
-      const repeatedUsername = documents.docs.find((doc) => {
-        return doc.data().username === username;
-      });
-
-      await handleUsername(e.target, db, repeatedUsername, username);
-
-      props.signIn(e);
+      const hasUsernameChanged = await changeUsername(
+        props.auth.currentUser,
+        username,
+        e.target
+      );
+      if (!hasUsernameChanged) {
+        setIsLoading(false);
+      } else {
+        props.showSignUpForm();
+        props.signIn(e);
+      }
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
-    }
-  };
-
-  const handleUsername = async (form, db, repeatedUsername, username) => {
-    const user = props.auth.currentUser;
-
-    if (repeatedUsername) {
-      console.log('Repeated');
-      form.firstChild.textContent = 'USERNAME IS TAKEN';
-      form.username.classList.add('error');
-      setIsLoading(false);
-    } else if (username.length > 24) {
-      form.firstChild.textContent =
-        'USERNAME SHOULD BE SHORTER THAN 24 CHARACTERS';
-      form.username.classList.add('error');
-      setIsLoading(false);
-    } else {
-      //Add the username to the db.
-      form.firstChild.textContent = '';
-      form.username.classList.add('valid');
-      await setDoc(doc(db, 'users', user.uid), {
-        username: username,
-      });
-      await updateProfile(user, {
-        displayName: username,
-      });
-      props.showSignUpForm();
     }
   };
 
@@ -116,7 +80,7 @@ const SignUp = (props) => {
             </Form>
           )}
           {isSignedUp && (
-            <Form onSubmit={changeUsername}>
+            <Form onSubmit={setUsername}>
               <Label htmlFor="username">CHOOSE A USERNAME</Label>
               <Input required type="text" id="username" name="username" />
               {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
