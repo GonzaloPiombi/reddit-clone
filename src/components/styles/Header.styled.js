@@ -16,6 +16,25 @@ const Nav = styled.nav`
   align-items: center;
   height: inherit;
   padding: 0 20px;
+
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 200px;
+  }
+
+  & .create-button {
+    background: none;
+    border: none;
+    color: #777777;
+    font-size: 1.8rem;
+  }
+
+  & .create-button:hover {
+    background-color: #dfdfdf;
+    border-radius: 4px;
+  }
 `;
 
 const Logo = styled.img`
