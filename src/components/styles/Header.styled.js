@@ -25,6 +25,17 @@ const Nav = styled.nav`
     min-width: 200px;
   }
 
+  & > div:first-child {
+    min-width: 350px;
+  }
+
+  & a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+
   & .create-button {
     background: none;
     border: none;
