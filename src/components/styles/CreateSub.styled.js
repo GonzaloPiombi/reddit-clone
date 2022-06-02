@@ -17,6 +17,7 @@ const StyledCreateSub = styled.div`
   }
 
   & label {
+    display: block;
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
@@ -44,8 +45,8 @@ const StyledCreateSub = styled.div`
   & span {
     color: #7a7a7a;
     position: relative;
-    right: 45px;
-    top: 35px;
+    right: -5px;
+    top: 25px;
   }
 
   & input {
@@ -53,7 +54,6 @@ const StyledCreateSub = styled.div`
     border-radius: 4px;
     font-size: 0.9rem;
     height: 28px;
-    margin-top: 10px;
     outline: none;
     padding-left: 16px;
     width: 100%;
@@ -64,6 +64,14 @@ const StyledCreateSub = styled.div`
     font-weight: 600;
     margin-left: 10px;
     padding: 6px 10px;
+  }
+
+  & .valid {
+    border-color: green;
+  }
+
+  & .invalid {
+    border-color: red;
   }
 `;
 
