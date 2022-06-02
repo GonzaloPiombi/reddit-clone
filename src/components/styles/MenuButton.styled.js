@@ -26,7 +26,7 @@ const StyledMenuButton = styled.button`
 
 const StyledSubButton = styled(StyledMenuButton)`
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   font-size: 1rem;
   font-weight: 600;
   min-width: 215px;
