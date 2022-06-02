@@ -39,7 +39,9 @@ const Header = (props) => {
               <i className="las la-plus"></i>
             </button>
           )}
-          {isCreateButtonClicked && <CreateMenu />}
+          {isCreateButtonClicked && (
+            <CreateMenu toggleCreateSub={props.toggleCreateSub} />
+          )}
           {!props.isSignedIn && (
             <ButtonContainer>
               <AltButton onClick={props.showSignInForm}>Log In</AltButton>

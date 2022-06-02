@@ -1,10 +1,10 @@
 import { StyledProfileMenu } from './styles/Profile.styled';
 
-const CreateMenu = () => {
+const CreateMenu = ({ toggleCreateSub }) => {
   return (
     <StyledProfileMenu style={{ right: '40px' }}>
       <button>Create Post</button>
-      <button>Create Subreddit</button>
+      <button onClick={toggleCreateSub}>Create Subreddit</button>
     </StyledProfileMenu>
   );
 };

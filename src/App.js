@@ -21,6 +21,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Profile from './components/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CreateSub from './components/CreateSub';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -28,6 +29,7 @@ function App() {
   const [signIn, setSignIn] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUsername, setCurrentUsername] = useState('');
+  const [isCreateSub, setIsCreateSub] = useState(false);
   const auth = getAuth();
 
   useEffect(() => {
@@ -72,7 +74,7 @@ function App() {
     });
 
     return () => unsub();
-  });
+  }, [auth]);
 
   const signUserIn = async (e, email, password) => {
     e.preventDefault();
@@ -100,6 +102,10 @@ function App() {
     setCurrentUsername(username);
   };
 
+  const toggleCreateSub = () => {
+    setIsCreateSub(!isCreateSub);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -109,6 +115,7 @@ function App() {
           showSignInForm={showSignInForm}
           isSignedIn={isSignedIn}
           user={currentUsername}
+          toggleCreateSub={toggleCreateSub}
         />
         <Routes>
           <Route
@@ -141,6 +148,7 @@ function App() {
         {signIn && (
           <SignIn showSignInForm={showSignInForm} signIn={signUserIn} />
         )}
+        {isCreateSub && <CreateSub toggleCreateSub={toggleCreateSub} />}
       </div>
     </BrowserRouter>
   );
