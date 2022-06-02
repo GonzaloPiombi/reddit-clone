@@ -13,20 +13,21 @@ const StyledCreateSub = styled.div`
 
   & h1 {
     font-size: 1.4rem;
+    margin: 0;
   }
 
-  & h3 {
+  & label {
     font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   & h1,
-  h3 {
+  label {
     color: #383838;
-    margin: 0;
     font-weight: 500;
   }
 
-  & > div {
+  & div {
     margin-bottom: 12px;
   }
 
@@ -35,7 +36,7 @@ const StyledCreateSub = styled.div`
     padding-bottom: 10px;
   }
 
-  & > div:last-child {
+  & form > div:last-child {
     margin-top: 20px;
     text-align: end;
   }
@@ -43,8 +44,8 @@ const StyledCreateSub = styled.div`
   & span {
     color: #7a7a7a;
     position: relative;
-    right: -5px;
-    top: 24px;
+    right: 45px;
+    top: 35px;
   }
 
   & input {
@@ -52,6 +53,7 @@ const StyledCreateSub = styled.div`
     border-radius: 4px;
     font-size: 0.9rem;
     height: 28px;
+    margin-top: 10px;
     outline: none;
     padding-left: 16px;
     width: 100%;
