@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledUserButton = styled.button`
+const StyledMenuButton = styled.button`
   background: none;
   border: solid 1px transparent;
   display: flex;
@@ -24,4 +24,13 @@ const StyledUserButton = styled.button`
   }
 `;
 
-export { StyledUserButton };
+const StyledSubButton = styled(StyledMenuButton)`
+  display: flex;
+  justify-content: start;
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 215px;
+  padding: 8px 5px;
+`;
+
+export { StyledMenuButton, StyledSubButton };
