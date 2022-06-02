@@ -8,6 +8,7 @@ const StyledHeader = styled.header`
   top: 0;
   height: 48px;
   width: 100%;
+  z-index: 1;
 `;
 
 const Nav = styled.nav`
