@@ -5,10 +5,13 @@ import UserButton from './UserButton.js';
 import ProfileMenu from './ProfileMenu';
 import { Link } from 'react-router-dom';
 import CreateMenu from './CreateMenu';
+import SubMenu from './SubMenu';
+import { StyledSubButton } from './styles/MenuButton.styled';
 
 const Header = (props) => {
   const [isUserButtonClicked, setIsUserButtonClicked] = useState(false);
   const [isCreateButtonClicked, setIsCreateButtonClicked] = useState(false);
+  const [isSubButtonClicked, setIsSubButtonClicked] = useState(false);
 
   const handleUserButtonClick = () => {
     setIsUserButtonClicked(!isUserButtonClicked);
@@ -24,6 +27,10 @@ const Header = (props) => {
     }
   };
 
+  const handleSubButtonClick = () => {
+    setIsSubButtonClicked(!isSubButtonClicked);
+  };
+
   return (
     <StyledHeader>
       <Nav>
@@ -31,7 +38,14 @@ const Header = (props) => {
           <Link to="/">
             <Logo src="./images/reddit-logo.png" alt="logo" />
           </Link>
-          <button>Placeholder</button>
+          <StyledSubButton
+            onClick={handleSubButtonClick}
+            active={isSubButtonClicked}
+          >
+            <p>{props.currentSub}</p>
+            <i className="las la-angle-down"></i>
+          </StyledSubButton>
+          {isSubButtonClicked && <SubMenu />}
         </div>
         <div>
           {props.isSignedIn && (
