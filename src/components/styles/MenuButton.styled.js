@@ -31,6 +31,7 @@ const StyledSubButton = styled(StyledMenuButton)`
   font-weight: 600;
   min-width: 215px;
   padding: 8px 5px;
+  border: ${(props) => (props.active ? 'solid 1px #dfdfdf' : 'null')};
 `;
 
 export { StyledMenuButton, StyledSubButton };
