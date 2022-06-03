@@ -29,7 +29,7 @@ const Nav = styled.nav`
     min-width: 350px;
   }
 
-  & a {
+  & > div > a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
