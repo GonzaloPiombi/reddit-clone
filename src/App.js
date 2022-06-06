@@ -22,6 +22,7 @@ import SignIn from './components/SignIn';
 import Profile from './components/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateSub from './components/CreateSub';
+import Subreddit from './components/Subreddit';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -30,6 +31,7 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUsername, setCurrentUsername] = useState('');
   const [isCreateSub, setIsCreateSub] = useState(false);
+  const [currentSub, setCurrentSub] = useState('Home');
   const auth = getAuth();
 
   useEffect(() => {
@@ -106,6 +108,10 @@ function App() {
     setIsCreateSub(!isCreateSub);
   };
 
+  const setSubName = (name) => {
+    setCurrentSub(name);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -116,6 +122,8 @@ function App() {
           isSignedIn={isSignedIn}
           user={currentUsername}
           toggleCreateSub={toggleCreateSub}
+          currentSub={currentSub}
+          setSub={setSubName}
         />
         <Routes>
           <Route
@@ -126,6 +134,10 @@ function App() {
                 <Card posts={posts} />
               </>
             }
+          />
+          <Route
+            path="/r/:subreddit"
+            element={<Subreddit setSub={setSubName} />}
           />
           <Route
             path="/profile"
