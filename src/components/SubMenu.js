@@ -3,7 +3,7 @@ import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import { StyledProfileMenu } from './styles/Profile.styled';
 import { Link } from 'react-router-dom';
 
-const SubMenu = () => {
+const SubMenu = (props) => {
   const [subList, setSubList] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const SubMenu = () => {
     >
       {subList.map((sub) => {
         return (
-          <Link key={sub.id} to={`/r/${sub.name}`}>
+          <Link key={sub.id} to={`/r/${sub.name}`} onClick={props.onBtnClick}>
             {sub.name}
           </Link>
         );
