@@ -35,7 +35,7 @@ const Header = (props) => {
     <StyledHeader>
       <Nav>
         <div>
-          <Link to="/">
+          <Link to="/" onClick={() => props.setSub('Home')}>
             <Logo src="./images/reddit-logo.png" alt="logo" />
           </Link>
           <StyledSubButton
