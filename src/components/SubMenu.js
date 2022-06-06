@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import { StyledProfileMenu } from './styles/Profile.styled';
+import { Link } from 'react-router-dom';
 
 const SubMenu = () => {
   const [subList, setSubList] = useState([]);
@@ -11,7 +12,7 @@ const SubMenu = () => {
     const unsub = onSnapshot(colRef, (snapshot) => {
       let subs = [];
       snapshot.docs.forEach((doc) => {
-        subs.push(doc.data().name);
+        subs.push({ name: doc.data().name, id: doc.id });
       });
       setSubList(subs);
 
@@ -33,7 +34,11 @@ const SubMenu = () => {
       }}
     >
       {subList.map((sub) => {
-        return <div>{sub}</div>;
+        return (
+          <Link key={sub.id} to={`/r/${sub.name}`}>
+            {sub.name}
+          </Link>
+        );
       })}
     </StyledProfileMenu>
   );
