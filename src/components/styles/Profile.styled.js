@@ -52,4 +52,27 @@ const StyledProfileMenu = styled.div`
   }
 `;
 
-export { StyledProfile, StyledProfileMenu };
+const StyledSubMenu = styled(StyledProfileMenu)`
+  display: flex;
+  align-items: flex-start;
+  height: auto;
+  top: 39px;
+  left: 155px;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  width: 215px;
+
+  & a {
+    color: #4a4a4a;
+    text-decoration: none;
+    padding: 0 10px 2px;
+    width: 100%;
+  }
+
+  & a:hover {
+    background-color: #0000000a;
+  }
+`;
+
+export { StyledProfile, StyledProfileMenu, StyledSubMenu };

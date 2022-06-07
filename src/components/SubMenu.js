@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
-import { StyledProfileMenu } from './styles/Profile.styled';
+import { StyledSubMenu } from './styles/Profile.styled';
 import { Link } from 'react-router-dom';
 
 const SubMenu = (props) => {
@@ -21,26 +21,15 @@ const SubMenu = (props) => {
   }, []);
 
   return (
-    <StyledProfileMenu
-      style={{
-        height: 'auto',
-        top: '39px',
-        left: '155px',
-        borderTop: 'none',
-        paddingTop: '0',
-        borderTopRightRadius: '0',
-        borderTopLeftRadius: '0',
-        width: '215px',
-      }}
-    >
+    <StyledSubMenu>
       {subList.map((sub) => {
         return (
           <Link key={sub.id} to={`/r/${sub.name}`} onClick={props.onBtnClick}>
-            {sub.name}
+            r/{sub.name}
           </Link>
         );
       })}
-    </StyledProfileMenu>
+    </StyledSubMenu>
   );
 };
 
