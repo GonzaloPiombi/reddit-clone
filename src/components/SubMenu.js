@@ -24,7 +24,12 @@ const SubMenu = (props) => {
     <StyledSubMenu>
       {subList.map((sub) => {
         return (
-          <Link key={sub.id} to={`/r/${sub.name}`} onClick={props.onBtnClick}>
+          <Link
+            key={sub.id}
+            to={`/r/${sub.name}`}
+            onClick={props.onBtnClick}
+            state={{ id: sub.id }}
+          >
             r/{sub.name}
           </Link>
         );
