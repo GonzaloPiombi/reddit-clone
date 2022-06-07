@@ -109,7 +109,7 @@ function App() {
   };
 
   const setSubName = (name) => {
-    setCurrentSub(name);
+    setCurrentSub(name !== 'Home' ? `r/${name}` : 'Home');
   };
 
   return (
