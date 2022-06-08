@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import { getFirestore, collection, getDocs } from '@firebase/firestore';
+import PostView from './PostView';
+import Comments from './Comments';
 
 const Post = () => {
   const params = useParams();
+  const postInfo = useLocation().state;
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -32,6 +35,7 @@ const Post = () => {
             postData.push({ ...doc.data(), id: doc.id, replies: replies });
           })
         );
+        console.log(postData);
         setComments(postData);
       } catch (error) {
         console.log(error.message);
@@ -39,7 +43,7 @@ const Post = () => {
     };
 
     getPost();
-  });
+  }, []);
 
   const getReplies = async (db, path) => {
     let subComments = [];
@@ -54,7 +58,12 @@ const Post = () => {
     );
     return subComments;
   };
-  return <div></div>;
+  return (
+    <div>
+      <PostView post={postInfo} />
+      <Comments comments={comments} />
+    </div>
+  );
 };
 
 export default Post;
