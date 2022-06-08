@@ -6,6 +6,7 @@ import {
   setDoc,
   doc,
 } from 'firebase/firestore';
+import { formatDistanceToNowStrict } from 'date-fns';
 
 const changeUsername = async (user, username, form) => {
   //Get the db and the users collection.
@@ -39,4 +40,13 @@ const changeUsername = async (user, username, form) => {
   }
 };
 
-export { changeUsername };
+const formatDate = (date) => {
+  const dateObj = date;
+  const day = dateObj.getUTCDate();
+  const month = dateObj.getUTCMonth();
+  const year = dateObj.getUTCFullYear();
+  const relativeTime = formatDistanceToNowStrict(new Date(year, month, day));
+  return relativeTime;
+};
+
+export { changeUsername, formatDate };
