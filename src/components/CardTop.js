@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
-import { formatDistanceToNowStrict } from 'date-fns';
-import { Button } from './styles/Button.styled';
 import { StyledCardTop } from './styles/Card.styled';
+import { formatDate } from '../helpers/helpers';
 
 const CardTop = ({ author, date, subName }) => {
   const [relativeTime, setRelativeTime] = useState(null);
 
   useEffect(() => {
-    const dateObj = date;
-    const day = dateObj.getUTCDate();
-    const month = dateObj.getUTCMonth();
-    const year = dateObj.getUTCFullYear();
-    setRelativeTime(formatDistanceToNowStrict(new Date(year, month, day)));
+    setRelativeTime(formatDate(date));
   }, []);
 
   return (
@@ -23,7 +18,6 @@ const CardTop = ({ author, date, subName }) => {
       <p>
         Posted by u/{author} {relativeTime} ago
       </p>
-      <Button>Join</Button>
     </StyledCardTop>
   );
 };
