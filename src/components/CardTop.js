@@ -7,7 +7,7 @@ const CardTop = ({ author, date, subName }) => {
   const [relativeTime, setRelativeTime] = useState(null);
 
   useEffect(() => {
-    const dateObj = date.toDate();
+    const dateObj = date;
     const day = dateObj.getUTCDate();
     const month = dateObj.getUTCMonth();
     const year = dateObj.getUTCFullYear();

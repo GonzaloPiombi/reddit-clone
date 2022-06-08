@@ -13,8 +13,17 @@ const Card = (props) => {
           <Link
             to={`/r/${subName}/${id}`}
             style={{ textDecoration: 'none', color: '#000' }}
+            state={{
+              title,
+              content,
+              id,
+              votes,
+              date: date.toDate(),
+              author,
+              subName,
+            }}
           >
-            <CardTop author={author} date={date} subName={subName} />
+            <CardTop author={author} date={date.toDate()} subName={subName} />
             <h2>{title}</h2>
             <p>{content}</p>
             <CardBottom />
