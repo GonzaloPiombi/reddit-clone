@@ -19,6 +19,12 @@ const StyledCard = styled.div`
     margin: 2px 10px;
   }
 
+  & p {
+    margin: 0 10px;
+    max-height: 600px;
+    overflow: hidden;
+  }
+
   &:hover {
     border: 1px solid #9f9f9f;
   }
@@ -94,4 +100,29 @@ const StyledCardTop = styled.div`
   }
 `;
 
-export { StyledCard, StyledCardSidebar, StyledCardTop };
+const PostCard = styled(StyledCard)`
+  border: solid 1px transparent;
+  cursor: default;
+
+  & > div {
+    background-color: #fff;
+  }
+
+  & h1 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 2px 10px;
+  }
+
+  & p {
+    margin-bottom: 10px;
+    max-height: none;
+    overflow: none;
+  }
+
+  &:hover {
+    border: solid 1px transparent;
+  }
+`;
+
+export { StyledCard, StyledCardSidebar, StyledCardTop, PostCard };
