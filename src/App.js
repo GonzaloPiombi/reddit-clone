@@ -23,6 +23,7 @@ import Profile from './components/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateSub from './components/CreateSub';
 import Subreddit from './components/Subreddit';
+import Post from './components/Post';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -139,6 +140,7 @@ function App() {
             path="/r/:subreddit"
             element={<Subreddit setSub={setSubName} />}
           />
+          <Route path="/r/:subreddit/:id" element={<Post />} />
           <Route
             path="/profile"
             element={
