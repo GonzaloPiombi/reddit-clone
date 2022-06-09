@@ -4,6 +4,11 @@ const StyledCommentSection = styled.div`
   background-color: #fff;
   margin: 0 auto;
   width: 650px;
+
+  & div {
+    padding-left: 4px;
+    width: 100%;
+  }
 `;
 
 const StyledComment = styled.div`
@@ -11,8 +16,13 @@ const StyledComment = styled.div`
   flex-direction: column;
 `;
 
-const CommentTop = styled.div`
+const StyledCommentBottom = styled.div`
   display: flex;
 `;
 
-export { StyledCommentSection, StyledComment, CommentTop };
+const Replies = styled.div`
+  border-left: solid 1px grey;
+  max-width: 650px;
+`;
+
+export { StyledCommentSection, StyledComment, StyledCommentBottom, Replies };
