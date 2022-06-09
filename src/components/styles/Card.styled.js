@@ -78,10 +78,13 @@ const StyledCardTop = styled.div`
   & p {
     font-size: 0.8rem;
     font-weight: 300;
+    margin: 0;
   }
 
   & > div {
     display: inline;
+    width: auto;
+    padding: 0;
   }
 
   & span {
@@ -114,10 +117,9 @@ const PostCard = styled(StyledCard)`
     margin: 2px 10px;
   }
 
-  & p {
+  & > p {
     margin-bottom: 10px;
     max-height: none;
-    overflow: none;
   }
 
   &:hover {
