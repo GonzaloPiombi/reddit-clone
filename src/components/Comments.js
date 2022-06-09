@@ -25,15 +25,26 @@ const Comments = ({ comments }) => {
                 </div>
                 <p>{formatDate(comment.date.toDate())}</p>
               </StyledCardTop>
-              <div>
-                <p>{comment.content}</p>
+              <div className="thread-line"></div>
+              <div className="container">
+                <div className="content">
+                  <p>{comment.content}</p>
+                </div>
+                <StyledCommentBottom>
+                  <button>
+                    <i className="las la-caret-up"></i>
+                  </button>
+                  <p>{comment.votes}</p>
+                  <button>
+                    <i className="las la-caret-down"></i>
+                  </button>
+                  <button>
+                    <i className="las la-comment-alt"></i>
+                    <p>Reply</p>
+                  </button>
+                </StyledCommentBottom>
               </div>
-              <StyledCommentBottom>
-                <p>{comment.votes}</p>
-                <button>Reply</button>
-              </StyledCommentBottom>
             </div>
-
             {comment.replies.length > 0 ? (
               <Replies>{renderReplies(comment.replies)}</Replies>
             ) : null}

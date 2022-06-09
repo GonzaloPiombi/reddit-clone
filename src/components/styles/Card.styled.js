@@ -83,7 +83,7 @@ const StyledCardTop = styled.div`
 
   & > div {
     display: inline;
-    width: auto;
+    width: auto !important;
     padding: 0;
   }
 
