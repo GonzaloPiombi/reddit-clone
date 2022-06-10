@@ -85,6 +85,29 @@ const StyledCommentBottom = styled.div`
   }
 `;
 
-const Replies = styled.div``;
+const Replies = styled.div`
+  &.hidden {
+    display: none;
+  }
+`;
 
-export { StyledCommentSection, StyledComment, StyledCommentBottom, Replies };
+const ShowRepliesButton = styled.button`
+  background: none;
+  border: none;
+  color: #0079d3;
+  font-weight: 600;
+  margin-left: 10px;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export {
+  StyledCommentSection,
+  StyledComment,
+  StyledCommentBottom,
+  Replies,
+  ShowRepliesButton,
+};
