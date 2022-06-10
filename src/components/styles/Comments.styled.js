@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StyledCommentSection = styled.div`
   background-color: #fff;
+  border-radius: 4px;
   margin: 0 auto;
   position: relative;
   width: 650px;
@@ -104,10 +105,23 @@ const ShowRepliesButton = styled.button`
   }
 `;
 
+const NoComments = styled.div`
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > p {
+    color: #7c7c7c;
+    font-size: 2rem;
+  }
+`;
+
 export {
   StyledCommentSection,
   StyledComment,
   StyledCommentBottom,
   Replies,
   ShowRepliesButton,
+  NoComments,
 };
