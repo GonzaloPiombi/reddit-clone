@@ -1,15 +1,36 @@
+import { useState } from 'react';
 import {
   StyledCommentSection,
   StyledComment,
   StyledCommentBottom,
   Replies,
+  ShowRepliesButton,
 } from './styles/Comments.styled';
 import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
 
 const Comments = ({ comments }) => {
+  const [showReplies, setShowReplies] = useState(false);
+
   const renderReplies = (replies) => {
     return <Comments comments={replies} />;
+  };
+
+  const shrinkReplies = (e) => {
+    const parentComment = e.target.parentNode.parentNode;
+    const hasReplies = [...parentComment.childNodes].find((child) =>
+      child.classList.contains('replies')
+    );
+
+    if (hasReplies) {
+      hasReplies.classList.toggle('hidden');
+      setShowReplies(!showReplies);
+    }
+  };
+
+  const growReplies = (e) => {
+    e.target.nextSibling.classList.remove('hidden');
+    setShowReplies(false);
   };
 
   return (
@@ -25,7 +46,7 @@ const Comments = ({ comments }) => {
                 </div>
                 <p>{formatDate(comment.date.toDate())}</p>
               </StyledCardTop>
-              <div className="thread-line"></div>
+              <div className="thread-line" onClick={shrinkReplies}></div>
               <div className="container">
                 <div className="content">
                   <p>{comment.content}</p>
@@ -45,8 +66,15 @@ const Comments = ({ comments }) => {
                 </StyledCommentBottom>
               </div>
             </div>
+            {comment.replies.length > 0 && showReplies && (
+              <ShowRepliesButton onClick={growReplies}>
+                Show {comment.replies.length} Replies
+              </ShowRepliesButton>
+            )}
             {comment.replies.length > 0 ? (
-              <Replies>{renderReplies(comment.replies)}</Replies>
+              <Replies className="replies">
+                {renderReplies(comment.replies)}
+              </Replies>
             ) : null}
           </StyledComment>
         );
