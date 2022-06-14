@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import { StyledSubMenu } from './styles/Profile.styled';
 import { Link } from 'react-router-dom';
 
 const SubMenu = (props) => {
-  const [subList, setSubList] = useState([]);
-
   useEffect(() => {
     const db = getFirestore();
     const colRef = collection(db, 'subs');
@@ -14,7 +12,7 @@ const SubMenu = (props) => {
       snapshot.docs.forEach((doc) => {
         subs.push({ name: doc.data().name, id: doc.id });
       });
-      setSubList(subs);
+      props.setSubList(subs);
 
       return () => unsub();
     });
@@ -22,7 +20,7 @@ const SubMenu = (props) => {
 
   return (
     <StyledSubMenu>
-      {subList.map((sub) => {
+      {props.subList.map((sub) => {
         return (
           <Link
             key={sub.id}

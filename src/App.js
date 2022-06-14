@@ -24,6 +24,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateSub from './components/CreateSub';
 import Subreddit from './components/Subreddit';
 import Post from './components/Post';
+import CreatePost from './components/CreatePost';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -33,6 +34,7 @@ function App() {
   const [currentUsername, setCurrentUsername] = useState('');
   const [isCreateSub, setIsCreateSub] = useState(false);
   const [currentSub, setCurrentSub] = useState('Home');
+  const [subList, setSubList] = useState([]);
   const auth = getAuth();
 
   useEffect(() => {
@@ -113,6 +115,10 @@ function App() {
     setCurrentSub(name !== 'Home' ? `r/${name}` : 'Home');
   };
 
+  const getSubList = (value) => {
+    setSubList(value);
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -125,6 +131,8 @@ function App() {
           toggleCreateSub={toggleCreateSub}
           currentSub={currentSub}
           setSub={setSubName}
+          subList={subList}
+          setSubList={getSubList}
         />
         <Routes>
           <Route
@@ -154,6 +162,7 @@ function App() {
               />
             }
           />
+          <Route path="/submit" element={<CreatePost subList={subList} />} />
         </Routes>
         {signUp && (
           <SignUp

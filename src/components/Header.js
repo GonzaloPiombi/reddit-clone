@@ -45,7 +45,13 @@ const Header = (props) => {
             <p>{props.currentSub}</p>
             <i className="las la-angle-down"></i>
           </StyledSubButton>
-          {isSubButtonClicked && <SubMenu onBtnClick={handleSubButtonClick} />}
+          {isSubButtonClicked && (
+            <SubMenu
+              onBtnClick={handleSubButtonClick}
+              subList={props.subList}
+              setSubList={props.setSubList}
+            />
+          )}
         </div>
         <div>
           {props.isSignedIn && (
