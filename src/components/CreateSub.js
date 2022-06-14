@@ -39,7 +39,7 @@ const CreateSub = (props) => {
           <div>
             <label htmlFor="subName">Name</label>
             <span>r/</span>
-            <input name="subName" id="subName" type="text" />
+            <input name="subName" id="subName" type="text" required />
           </div>
           <div>
             <AltButton onClick={props.toggleCreateSub}>Cancel</AltButton>
