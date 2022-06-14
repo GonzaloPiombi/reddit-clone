@@ -29,4 +29,15 @@ const Label = styled.label`
   font-size: 0.9rem;
 `;
 
-export { Form, Input, Label };
+const Select = styled.select`
+  background-color: #fff;
+  border-radius: 4px;
+  color: #4a4a4a;
+  font-size: 1rem;
+  height: 30px;
+  outline: none;
+  padding: 0 4px;
+  width: 225px;
+`;
+
+export { Form, Input, Label, Select };
