@@ -1,10 +1,10 @@
 import { StyledProfileMenu } from './styles/Profile.styled';
 import { Link } from 'react-router-dom';
 
-const CreateMenu = ({ toggleCreateSub }) => {
+const CreateMenu = ({ toggleCreateSub, handleCreateButtonClick }) => {
   return (
     <StyledProfileMenu style={{ right: '40px' }}>
-      <button>
+      <button onClick={handleCreateButtonClick}>
         <Link
           to="/submit"
           style={{
@@ -17,7 +17,14 @@ const CreateMenu = ({ toggleCreateSub }) => {
           Create Post
         </Link>
       </button>
-      <button onClick={toggleCreateSub}>Create Subreddit</button>
+      <button
+        onClick={() => {
+          toggleCreateSub();
+          handleCreateButtonClick();
+        }}
+      >
+        Create Subreddit
+      </button>
     </StyledProfileMenu>
   );
 };

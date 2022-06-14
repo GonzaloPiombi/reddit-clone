@@ -60,7 +60,10 @@ const Header = (props) => {
             </button>
           )}
           {isCreateButtonClicked && (
-            <CreateMenu toggleCreateSub={props.toggleCreateSub} />
+            <CreateMenu
+              toggleCreateSub={props.toggleCreateSub}
+              handleCreateButtonClick={handleCreateButtonClick}
+            />
           )}
           {!props.isSignedIn && (
             <ButtonContainer>
