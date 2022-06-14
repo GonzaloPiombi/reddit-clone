@@ -162,7 +162,10 @@ function App() {
               />
             }
           />
-          <Route path="/submit" element={<CreatePost subList={subList} />} />
+          <Route
+            path="/submit"
+            element={<CreatePost subList={subList} auth={auth} />}
+          />
         </Routes>
         {signUp && (
           <SignUp
