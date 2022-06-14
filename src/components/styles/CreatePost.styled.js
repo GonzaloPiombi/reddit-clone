@@ -39,6 +39,12 @@ const StyledCreatePost = styled.div`
   & textarea {
     height: 200px;
   }
+
+  & button {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+  }
 `;
 
 export { StyledCreatePost };
