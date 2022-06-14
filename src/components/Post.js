@@ -4,7 +4,7 @@ import { getFirestore, collection, getDocs } from '@firebase/firestore';
 import PostView from './PostView';
 import Comments from './Comments';
 
-const Post = () => {
+const Post = (props) => {
   const params = useParams();
   const postInfo = useLocation().state;
   const [comments, setComments] = useState([]);
@@ -42,6 +42,7 @@ const Post = () => {
       }
     };
 
+    props.setSub(params.subreddit);
     getPost();
   }, []);
 

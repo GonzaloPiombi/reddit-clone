@@ -140,7 +140,10 @@ function App() {
             path="/r/:subreddit"
             element={<Subreddit setSub={setSubName} />}
           />
-          <Route path="/r/:subreddit/:id" element={<Post />} />
+          <Route
+            path="/r/:subreddit/:id"
+            element={<Post setSub={setSubName} />}
+          />
           <Route
             path="/profile"
             element={
