@@ -9,6 +9,7 @@ import {
 } from './styles/Comments.styled';
 import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
+import Loader from './Loader';
 
 const Comments = ({ comments, status }) => {
   const [showReplies, setShowReplies] = useState(false);
@@ -37,7 +38,9 @@ const Comments = ({ comments, status }) => {
   if (!status) {
     return (
       <StyledCommentSection>
-        <p>Loading...</p>
+        <NoComments>
+          <Loader />
+        </NoComments>
       </StyledCommentSection>
     );
   }
