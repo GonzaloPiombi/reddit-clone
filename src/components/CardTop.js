@@ -6,8 +6,9 @@ const CardTop = ({ author, date, subName }) => {
   const [relativeTime, setRelativeTime] = useState(null);
 
   useEffect(() => {
+    if (!date) return;
     setRelativeTime(formatDate(date));
-  }, []);
+  }, [date]);
 
   return (
     <StyledCardTop>
