@@ -15,6 +15,7 @@ const Post = (props) => {
   const info = useLocation().state;
   const [postInfo, setPostInfo] = useState({});
   const [comments, setComments] = useState([]);
+  const [commentStatus, toggleStatus] = useState(false);
 
   const findSubredditID = async (colRef) => {
     const snapshot = await getDocs(colRef);
@@ -70,6 +71,7 @@ const Post = (props) => {
         })
       );
       setComments(postData);
+      toggleStatus(true);
     } catch (error) {
       console.log(error.message);
     }
@@ -92,7 +94,7 @@ const Post = (props) => {
   return (
     <div>
       <PostView post={postInfo} />
-      <Comments comments={comments} />
+      <Comments comments={comments} status={commentStatus} />
     </div>
   );
 };

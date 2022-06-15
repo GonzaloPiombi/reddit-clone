@@ -10,11 +10,11 @@ import {
 import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, status }) => {
   const [showReplies, setShowReplies] = useState(false);
 
   const renderReplies = (replies) => {
-    return <Comments comments={replies} />;
+    return <Comments comments={replies} status={status} />;
   };
 
   const shrinkReplies = (e) => {
@@ -33,6 +33,14 @@ const Comments = ({ comments }) => {
     e.target.nextSibling.classList.remove('hidden');
     setShowReplies(false);
   };
+
+  if (!status) {
+    return (
+      <StyledCommentSection>
+        <p>Loading...</p>
+      </StyledCommentSection>
+    );
+  }
 
   return (
     <StyledCommentSection>
