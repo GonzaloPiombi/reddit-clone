@@ -16,6 +16,8 @@ const Post = (props) => {
   const [postInfo, setPostInfo] = useState({});
   const [comments, setComments] = useState([]);
   const [commentStatus, toggleStatus] = useState(false);
+  const [commentToReply, setCommentToReply] = useState(null);
+  const [commentBox, toggleCommentBox] = useState(false);
 
   const findSubredditID = async (colRef) => {
     const snapshot = await getDocs(colRef);
@@ -91,10 +93,22 @@ const Post = (props) => {
     return subComments;
   };
 
+  const showCommentBox = (e) => {
+    console.log(e.currentTarget.id);
+    setCommentToReply(e.currentTarget.id);
+    toggleCommentBox(true);
+  };
+
   return (
     <div>
       <PostView post={postInfo} />
-      <Comments comments={comments} status={commentStatus} />
+      <Comments
+        comments={comments}
+        status={commentStatus}
+        commentBox={commentBox}
+        showCommentBox={showCommentBox}
+        commentToReply={commentToReply}
+      />
     </div>
   );
 };

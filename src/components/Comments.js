@@ -11,11 +11,25 @@ import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
 import Loader from './Loader';
 
-const Comments = ({ comments, status }) => {
+const Comments = ({
+  comments,
+  status,
+  showCommentBox,
+  commentBox,
+  commentToReply,
+}) => {
   const [showReplies, setShowReplies] = useState(false);
 
   const renderReplies = (replies) => {
-    return <Comments comments={replies} status={status} />;
+    return (
+      <Comments
+        comments={replies}
+        status={status}
+        showCommentBox={showCommentBox}
+        commentBox={commentBox}
+        commentToReply={commentToReply}
+      />
+    );
   };
 
   const shrinkReplies = (e) => {
@@ -76,13 +90,16 @@ const Comments = ({ comments, status }) => {
                     <button>
                       <i className="las la-caret-down"></i>
                     </button>
-                    <button>
+                    <button id={comment.id} onClick={showCommentBox}>
                       <i className="las la-comment-alt"></i>
                       <p>Reply</p>
                     </button>
                   </StyledCommentBottom>
                 </div>
               </div>
+              {commentBox && comment.id === commentToReply && (
+                <textarea></textarea>
+              )}
               {comment.replies.length > 0 && showReplies && (
                 <ShowRepliesButton onClick={growReplies}>
                   Show {comment.replies.length} Replies
