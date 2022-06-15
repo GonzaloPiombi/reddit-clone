@@ -56,7 +56,13 @@ const CreatePost = ({ subList, auth }) => {
           <input name="title" type="text" placeholder="Title" required />
           <textarea name="text" type="text" placeholder="Text"></textarea>
         </div>
-        {isSubmiting ? <Loader /> : <Button type="submit">Post</Button>}
+        {isSubmiting ? (
+          <div>
+            <Loader />
+          </div>
+        ) : (
+          <Button type="submit">Post</Button>
+        )}
       </form>
     </StyledCreatePost>
   );

@@ -15,6 +15,11 @@ const StyledCreatePost = styled.div`
     margin-bottom: 20px;
   }
 
+  & form > div:last-child {
+    align-items: flex-end;
+    padding-right: 35px;
+  }
+
   & label {
     margin-bottom: 10px;
   }
