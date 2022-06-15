@@ -18,6 +18,10 @@ const GlobalStyles = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  textarea {
+    resize: none;
+  }
 `;
 
 export default GlobalStyles;
