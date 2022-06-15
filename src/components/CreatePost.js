@@ -24,7 +24,6 @@ const CreatePost = ({ subList, auth }) => {
       const db = getFirestore();
       const colRef = collection(db, 'subs');
       const subColRef = collection(colRef, id, 'posts');
-      console.log(e.target.text.value);
 
       const docRef = await addDoc(subColRef, {
         author: auth.currentUser.displayName,
@@ -33,8 +32,7 @@ const CreatePost = ({ subList, auth }) => {
         votes: 0,
         date: serverTimestamp(),
       });
-      console.log(docRef);
-      // navigate(`../${e.target.sublist.value}/${docRef.id}`);
+      navigate(`../${e.target.sublist.value}/${docRef.id}`);
     } catch (error) {
       console.log(error.message);
     }
