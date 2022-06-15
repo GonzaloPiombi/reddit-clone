@@ -1,17 +1,14 @@
 import styled from 'styled-components';
+import Container from './Container.styled';
 
-const StyledCard = styled.div`
-  background-color: #fff;
+const StyledCard = styled(Container)`
   border: 1px solid #ccc;
-  border-radius: 4px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 10px;
+  margin-bottom: 10px;
   max-width: 800px;
   padding-left: 40px;
-  position: relative;
-  width: 650px;
 
   & h2 {
     font-size: 1.3rem;

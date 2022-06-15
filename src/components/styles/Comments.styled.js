@@ -1,12 +1,7 @@
 import styled from 'styled-components';
+import Container from './Container.styled';
 
-const StyledCommentSection = styled.div`
-  background-color: #fff;
-  border-radius: 4px;
-  margin: 0 auto;
-  position: relative;
-  width: 650px;
-
+const StyledCommentSection = styled(Container)`
   & div {
     padding-left: 4px;
     width: 100%;
