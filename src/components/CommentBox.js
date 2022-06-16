@@ -2,7 +2,7 @@ import {
   CommentBoxContainer,
   StyledCommentBox,
 } from './styles/CommentBox.styled';
-import { Button } from './styles/Button.styled';
+import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 
 const CommentBox = () => {
   return (
@@ -11,9 +11,10 @@ const CommentBox = () => {
         <h5>Comments as $User$</h5>
       </div>
       <StyledCommentBox></StyledCommentBox>
-      <div>
+      <ButtonContainer>
+        <AltButton>Cancel</AltButton>
         <Button>Post</Button>
-      </div>
+      </ButtonContainer>
     </CommentBoxContainer>
   );
 };

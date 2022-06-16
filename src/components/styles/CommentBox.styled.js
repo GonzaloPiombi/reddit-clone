@@ -7,13 +7,18 @@ const CommentBoxContainer = styled(Container)`
 
   & button {
     display: block;
-    margin: 0 34px 20px auto;
+    font-size: 0.9rem;
+    margin: 0 15px 20px 0;
+    min-width: 0;
+    padding: 4px 0px;
+    width: 75px;
   }
 
   & > div:last-child {
     border-bottom: solid 1px #ccc;
     margin: 0 auto;
     width: 600px;
+    justify-content: flex-end;
   }
 `;
 
