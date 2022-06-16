@@ -27,6 +27,8 @@ const StyledCommentBox = styled.textarea`
   border-radius: 4px;
   color: #1c1c1c;
   display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
   margin: auto auto 20px;
   outline: none;
