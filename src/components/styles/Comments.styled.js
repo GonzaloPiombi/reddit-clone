@@ -18,7 +18,7 @@ const StyledComment = styled.div`
     height: 50px;
     margin-left: 6px;
     position: absolute;
-    width: 0;
+    width: 10px;
   }
 
   & .thread-line:hover {
