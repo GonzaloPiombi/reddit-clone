@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledCommentBox } from './CommentBox.styled';
 
 const StyledCreatePost = styled.div`
   background-color: #fff;
@@ -24,25 +25,18 @@ const StyledCreatePost = styled.div`
     margin-bottom: 10px;
   }
 
-  & input,
-  textarea {
-    border: solid 1px grey;
-    border-radius: 4px;
-    outline: none;
-  }
-  & input:focus,
-  textarea:focus {
-    border: solid 1px black;
-  }
-
   & input {
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    color: #1c1c1c;
+    outline: none;
     font-size: 1rem;
     height: 35px;
     margin-bottom: 10px;
+    padding: 1px 10px;
   }
-
-  & textarea {
-    height: 200px;
+  & input:focus {
+    border: solid 1px #6c6c6c;
   }
 
   & button {
@@ -52,4 +46,9 @@ const StyledCreatePost = styled.div`
   }
 `;
 
-export { StyledCreatePost };
+const CreatePostBox = styled(StyledCommentBox)`
+  height: 200px;
+  width: 720px;
+`;
+
+export { StyledCreatePost, CreatePostBox };

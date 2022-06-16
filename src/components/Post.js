@@ -9,6 +9,7 @@ import {
 } from '@firebase/firestore';
 import PostView from './PostView';
 import Comments from './Comments';
+import CommentBox from './CommentBox';
 
 const Post = (props) => {
   const params = useParams();
@@ -102,6 +103,7 @@ const Post = (props) => {
   return (
     <div>
       <PostView post={postInfo} />
+      <CommentBox />
       <Comments
         comments={comments}
         status={commentStatus}
