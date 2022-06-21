@@ -95,7 +95,6 @@ const Post = (props) => {
   };
 
   const showCommentBox = (e) => {
-    console.log(e.currentTarget.id);
     setCommentToReply(e.currentTarget.id);
     toggleCommentBox(true);
   };
