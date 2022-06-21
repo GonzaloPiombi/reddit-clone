@@ -4,7 +4,7 @@ import {
 } from './styles/CommentBox.styled';
 import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 
-const CommentBox = () => {
+const CommentBox = ({ hideCommentBox }) => {
   return (
     <CommentBoxContainer>
       <div>
@@ -12,7 +12,7 @@ const CommentBox = () => {
       </div>
       <StyledCommentBox></StyledCommentBox>
       <ButtonContainer>
-        <AltButton>Cancel</AltButton>
+        <AltButton onClick={hideCommentBox}>Cancel</AltButton>
         <Button>Post</Button>
       </ButtonContainer>
     </CommentBoxContainer>

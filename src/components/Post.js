@@ -100,6 +100,10 @@ const Post = (props) => {
     toggleCommentBox(true);
   };
 
+  const hideCommentBox = () => {
+    toggleCommentBox(false);
+  };
+
   return (
     <div>
       <PostView post={postInfo} />
@@ -109,6 +113,7 @@ const Post = (props) => {
         status={commentStatus}
         commentBox={commentBox}
         showCommentBox={showCommentBox}
+        hideCommentBox={hideCommentBox}
         commentToReply={commentToReply}
       />
     </div>

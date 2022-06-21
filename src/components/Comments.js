@@ -10,6 +10,7 @@ import {
 import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
 import Loader from './Loader';
+import CommentBox from './CommentBox';
 
 const Comments = ({
   comments,
@@ -17,6 +18,7 @@ const Comments = ({
   showCommentBox,
   commentBox,
   commentToReply,
+  hideCommentBox,
 }) => {
   const [showReplies, setShowReplies] = useState(false);
 
@@ -26,6 +28,7 @@ const Comments = ({
         comments={replies}
         status={status}
         showCommentBox={showCommentBox}
+        hideCommentBox={hideCommentBox}
         commentBox={commentBox}
         commentToReply={commentToReply}
       />
@@ -98,7 +101,7 @@ const Comments = ({
                 </div>
               </div>
               {commentBox && comment.id === commentToReply && (
-                <textarea></textarea>
+                <CommentBox hideCommentBox={hideCommentBox}></CommentBox>
               )}
               {comment.replies.length > 0 && showReplies && (
                 <ShowRepliesButton onClick={growReplies}>
