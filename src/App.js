@@ -8,6 +8,8 @@ import {
   getDocs,
   getDoc,
   doc,
+  query,
+  orderBy,
 } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
@@ -20,7 +22,6 @@ import CreateSub from './components/CreateSub';
 import Subreddit from './components/Subreddit';
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
-
 import { AuthProvider } from './AuthContext';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   const [isCreateSub, setIsCreateSub] = useState(false);
   const [currentSub, setCurrentSub] = useState('Home');
   const [subList, setSubList] = useState([]);
+  const [postOrder, setPostOrder] = useState('votes');
 
   useEffect(() => {
     const getPosts = async () => {
@@ -37,19 +39,12 @@ function App() {
         const db = getFirestore();
         //Get every collection with the 'posts' name.
         const colRef = collectionGroup(db, 'posts');
-
-        const snapshot = await getDocs(colRef);
+        const q = query(colRef, orderBy(`${postOrder}`, 'desc'));
+        const snapshot = await getDocs(q);
         let data = [];
-        await Promise.all(
-          snapshot.docs.map(async (item) => {
-            //Query the name of the subreddit the post was made and add it to the object.
-            const docSnapshot = await getDoc(
-              doc(db, 'subs', item.ref.parent.parent.id)
-            );
-            const subName = docSnapshot.data().name;
-            data.push({ ...item.data(), id: item.id, subName: subName });
-          })
-        );
+        snapshot.docs.forEach((doc) => {
+          data.push({ ...doc.data(), id: doc.id });
+        });
         console.log(data);
         setPosts(data);
       } catch (error) {
@@ -58,7 +53,7 @@ function App() {
     };
 
     getPosts();
-  }, []);
+  }, [postOrder]);
 
   useEffect(() => {
     const db = getFirestore();
@@ -94,6 +89,10 @@ function App() {
     setSubList(value);
   };
 
+  const setOrder = (value) => {
+    setPostOrder(value);
+  };
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -113,7 +112,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <SortBar />
+                  <SortBar setOrder={setOrder} />
                   <Card posts={posts} />
                 </>
               }

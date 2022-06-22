@@ -1,13 +1,13 @@
 import { StyledSortBar } from './styles/SortBar.styled';
 
-const SortBar = () => {
+const SortBar = ({ setOrder }) => {
   return (
     <StyledSortBar>
-      <div>
+      <div onClick={() => setOrder('date')}>
         <i className="las la-clock"></i>
         <p>New</p>
       </div>
-      <div>
+      <div onClick={() => setOrder('votes')}>
         <i className="las la-chart-bar"></i>
         <p>Top</p>
       </div>
