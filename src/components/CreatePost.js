@@ -33,6 +33,7 @@ const CreatePost = ({ subList }) => {
         content: e.target.text.value,
         votes: 0,
         date: serverTimestamp(),
+        subName: e.target.sublist[index].getAttribute('name'),
       });
       navigate(`../${e.target.sublist.value}/${docRef.id}`);
     } catch (error) {
@@ -48,7 +49,7 @@ const CreatePost = ({ subList }) => {
           <label>Choose a community</label>
           <Select name="sublist" required>
             {subList.map((sub) => (
-              <option key={sub.id} id={sub.id}>
+              <option key={sub.id} id={sub.id} name={sub.name}>
                 r/{sub.name}
               </option>
             ))}
