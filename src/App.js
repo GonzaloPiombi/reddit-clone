@@ -3,6 +3,8 @@ import Header from './components/Header';
 import {
   getFirestore,
   collectionGroup,
+  collection,
+  onSnapshot,
   getDocs,
   getDoc,
   doc,
@@ -56,6 +58,20 @@ function App() {
     };
 
     getPosts();
+  }, []);
+
+  useEffect(() => {
+    const db = getFirestore();
+    const colRef = collection(db, 'subs');
+    const unsub = onSnapshot(colRef, (snapshot) => {
+      let subs = [];
+      snapshot.docs.forEach((doc) => {
+        subs.push({ name: doc.data().name, id: doc.id });
+      });
+      setSubList(subs);
+
+      return () => unsub();
+    });
   }, []);
 
   const showSignUpForm = () => {
