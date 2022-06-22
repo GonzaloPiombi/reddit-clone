@@ -10,6 +10,7 @@ import {
 import PostView from './PostView';
 import Comments from './Comments';
 import CommentBox from './CommentBox';
+import { useAuth } from '../AuthContext';
 
 const Post = (props) => {
   const params = useParams();
@@ -19,6 +20,7 @@ const Post = (props) => {
   const [commentStatus, toggleStatus] = useState(false);
   const [commentToReply, setCommentToReply] = useState(null);
   const [commentBox, toggleCommentBox] = useState(false);
+  const { currentUser } = useAuth();
 
   const findSubredditID = async (colRef) => {
     const snapshot = await getDocs(colRef);
@@ -106,7 +108,7 @@ const Post = (props) => {
   return (
     <div>
       <PostView post={postInfo} />
-      <CommentBox />
+      {currentUser ? <CommentBox /> : null}
       <Comments
         comments={comments}
         status={commentStatus}
