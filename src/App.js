@@ -7,7 +7,6 @@ import {
   getDoc,
   doc,
 } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
