@@ -11,6 +11,7 @@ import { StyledCardTop } from './styles/Card.styled';
 import { formatDate } from '../helpers/helpers';
 import Loader from './Loader';
 import CommentBox from './CommentBox';
+import { useAuth } from '../AuthContext';
 
 const Comments = ({
   comments,
@@ -21,6 +22,7 @@ const Comments = ({
   hideCommentBox,
 }) => {
   const [showReplies, setShowReplies] = useState(false);
+  const { currentUser } = useAuth();
 
   const renderReplies = (replies) => {
     return (
@@ -100,7 +102,7 @@ const Comments = ({
                   </StyledCommentBottom>
                 </div>
               </div>
-              {commentBox && comment.id === commentToReply && (
+              {commentBox && comment.id === commentToReply && currentUser && (
                 <CommentBox hideCommentBox={hideCommentBox}></CommentBox>
               )}
               {comment.replies.length > 0 && showReplies && (
