@@ -40,4 +40,9 @@ const Select = styled.select`
   width: 225px;
 `;
 
-export { Form, Input, Label, Select };
+const ErrorMessage = styled.p`
+  color: red;
+  margin-bottom: 5px;
+`;
+
+export { Form, Input, Label, Select, ErrorMessage };
