@@ -10,10 +10,12 @@ import {
 import Loader from './Loader';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../AuthContext';
 
-const CreatePost = ({ subList, auth }) => {
-  let navigate = useNavigate();
+const CreatePost = ({ subList }) => {
   const [isSubmiting, toggleIsSubmitting] = useState(false);
+  const { currentUser } = useAuth();
+  let navigate = useNavigate();
 
   const submitPost = async (e) => {
     try {
@@ -26,7 +28,7 @@ const CreatePost = ({ subList, auth }) => {
       const subColRef = collection(colRef, id, 'posts');
 
       const docRef = await addDoc(subColRef, {
-        author: auth.currentUser.displayName,
+        author: currentUser.displayName,
         title: e.target.title.value,
         content: e.target.text.value,
         votes: 0,

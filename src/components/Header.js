@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom';
 import CreateMenu from './CreateMenu';
 import SubMenu from './SubMenu';
 import { StyledSubButton } from './styles/MenuButton.styled';
+import { useAuth } from '../AuthContext';
 
 const Header = (props) => {
   const [isUserButtonClicked, setIsUserButtonClicked] = useState(false);
   const [isCreateButtonClicked, setIsCreateButtonClicked] = useState(false);
   const [isSubButtonClicked, setIsSubButtonClicked] = useState(false);
+  const { currentUser } = useAuth();
 
   const handleUserButtonClick = () => {
     setIsUserButtonClicked(!isUserButtonClicked);
@@ -54,7 +56,7 @@ const Header = (props) => {
           )}
         </div>
         <div>
-          {props.isSignedIn && (
+          {currentUser && (
             <button onClick={handleCreateButtonClick} className="create-button">
               <i className="las la-plus"></i>
             </button>
@@ -65,18 +67,13 @@ const Header = (props) => {
               handleCreateButtonClick={handleCreateButtonClick}
             />
           )}
-          {!props.isSignedIn && (
+          {!currentUser && (
             <ButtonContainer>
               <AltButton onClick={props.showSignInForm}>Log In</AltButton>
               <Button onClick={props.showSignUpForm}>Sign Up</Button>
             </ButtonContainer>
           )}
-          {props.isSignedIn && (
-            <UserButton
-              onButtonClick={handleUserButtonClick}
-              user={props.user}
-            />
-          )}
+          {currentUser && <UserButton onButtonClick={handleUserButtonClick} />}
           {isUserButtonClicked && (
             <ProfileMenu onButtonClick={handleUserButtonClick} />
           )}

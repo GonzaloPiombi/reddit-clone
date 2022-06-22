@@ -3,26 +3,26 @@ import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
 import { StyledSignInUp } from './styles/SignInUp.styled';
 import Loader from './Loader';
-import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
-import { Form, Input, Label } from './styles/Form.styled';
+import { updateProfile } from '@firebase/auth';
+import { ErrorMessage, Form, Input, Label } from './styles/Form.styled';
 import { changeUsername } from '../helpers/helpers';
+import { useAuth } from '../AuthContext';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { signUp, currentUser } = useAuth();
 
-  const signUp = async (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       //Activate loader
       setIsLoading(true);
 
-      const email = e.target.email.value;
-      const password = e.target.password.value;
-      const userCred = await createUserWithEmailAndPassword(
-        props.auth,
-        email,
-        password
+      const userCred = await signUp(
+        e.target.email.value,
+        e.target.password.value
       );
       e.target.reset();
 
@@ -35,6 +35,21 @@ const SignUp = (props) => {
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
+      console.log(error.code);
+      switch (error.code) {
+        case 'auth/weak-password':
+          setErrorMessage('Password should be at least 6 characters');
+          break;
+        case 'auth/email-already-in-use':
+          setErrorMessage('Email is already in use');
+          break;
+        case 'auth/invalid-email':
+          setErrorMessage('Please enter a valid email');
+          break;
+        default:
+          setErrorMessage('An error has occured');
+          break;
+      }
     }
   };
 
@@ -46,7 +61,7 @@ const SignUp = (props) => {
       const username = e.target.username.value;
 
       const hasUsernameChanged = await changeUsername(
-        props.auth.currentUser,
+        currentUser,
         username,
         e.target
       );
@@ -54,7 +69,6 @@ const SignUp = (props) => {
         setIsLoading(false);
       } else {
         props.showSignUpForm();
-        props.signIn(e);
       }
     } catch (error) {
       setIsLoading(false);
@@ -71,11 +85,12 @@ const SignUp = (props) => {
         <div>
           <h3>Sign up</h3>
           {!isSignedUp && (
-            <Form onSubmit={signUp}>
+            <Form onSubmit={handleSubmit}>
               <Label htmlFor="email">EMAIL</Label>
               <Input required type="email" id="email" name="email" />
               <Label htmlFor="password">PASSWORD</Label>
               <Input required type="password" id="password" name="password" />
+              <ErrorMessage>{errorMessage}</ErrorMessage>
               {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
             </Form>
           )}

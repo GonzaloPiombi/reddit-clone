@@ -7,13 +7,7 @@ import {
   getDoc,
   doc,
 } from 'firebase/firestore';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  setPersistence,
-  browserSessionPersistence,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 import Card from './components/Card';
 import SortBar from './components/SortBar';
@@ -26,16 +20,15 @@ import Subreddit from './components/Subreddit';
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
 
+import { AuthProvider } from './AuthContext';
+
 function App() {
   const [posts, setPosts] = useState([]);
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [currentUsername, setCurrentUsername] = useState('');
   const [isCreateSub, setIsCreateSub] = useState(false);
   const [currentSub, setCurrentSub] = useState('Home');
   const [subList, setSubList] = useState([]);
-  const auth = getAuth();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -66,45 +59,12 @@ function App() {
     getPosts();
   }, []);
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        setIsSignedIn(true);
-        setCurrentUsername(user.displayName);
-      } else {
-        setIsSignedIn(false);
-        setCurrentUsername('');
-      }
-    });
-
-    return () => unsub();
-  }, [auth]);
-
-  const signUserIn = async (e, email, password) => {
-    e.preventDefault();
-    try {
-      if (!auth.currentUser) {
-        await setPersistence(auth, browserSessionPersistence);
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-      setIsSignedIn(true);
-      setSignIn(false);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   const showSignUpForm = () => {
     setSignUp(!signUp);
   };
 
   const showSignInForm = () => {
     setSignIn(!signIn);
-  };
-
-  const setUsername = (username) => {
-    setCurrentUsername(username);
   };
 
   const toggleCreateSub = () => {
@@ -121,64 +81,44 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
-        <GlobalStyles />
-        <Header
-          showSignUpForm={showSignUpForm}
-          showSignInForm={showSignInForm}
-          isSignedIn={isSignedIn}
-          user={currentUsername}
-          toggleCreateSub={toggleCreateSub}
-          currentSub={currentSub}
-          setSub={setSubName}
-          subList={subList}
-          setSubList={getSubList}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <SortBar />
-                <Card posts={posts} />
-              </>
-            }
-          />
-          <Route
-            path="/r/:subreddit"
-            element={<Subreddit setSub={setSubName} />}
-          />
-          <Route
-            path="/r/:subreddit/:id"
-            element={<Post setSub={setSubName} />}
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                auth={auth}
-                username={currentUsername}
-                handleUsernameChange={setUsername}
-              />
-            }
-          />
-          <Route
-            path="/submit"
-            element={<CreatePost subList={subList} auth={auth} />}
-          />
-        </Routes>
-        {signUp && (
-          <SignUp
+      <AuthProvider>
+        <div className="App">
+          <GlobalStyles />
+          <Header
             showSignUpForm={showSignUpForm}
-            auth={auth}
-            signIn={signUserIn}
+            showSignInForm={showSignInForm}
+            toggleCreateSub={toggleCreateSub}
+            currentSub={currentSub}
+            setSub={setSubName}
+            subList={subList}
+            setSubList={getSubList}
           />
-        )}
-        {signIn && (
-          <SignIn showSignInForm={showSignInForm} signIn={signUserIn} />
-        )}
-        {isCreateSub && <CreateSub toggleCreateSub={toggleCreateSub} />}
-      </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <SortBar />
+                  <Card posts={posts} />
+                </>
+              }
+            />
+            <Route
+              path="/r/:subreddit"
+              element={<Subreddit setSub={setSubName} />}
+            />
+            <Route
+              path="/r/:subreddit/:id"
+              element={<Post setSub={setSubName} />}
+            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/submit" element={<CreatePost subList={subList} />} />
+          </Routes>
+          {signUp && <SignUp showSignUpForm={showSignUpForm} />}
+          {signIn && <SignIn showSignInForm={showSignInForm} />}
+          {isCreateSub && <CreateSub toggleCreateSub={toggleCreateSub} />}
+        </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

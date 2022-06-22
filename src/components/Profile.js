@@ -5,23 +5,25 @@ import { Button } from './styles/Button.styled';
 import { changeUsername } from '../helpers/helpers';
 import Loader from './Loader';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../AuthContext';
 
 const Profile = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { currentUser, setUsername } = useAuth();
   const navigate = useNavigate();
 
-  const setUsername = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const hasUsernameChanged = await changeUsername(
-      props.auth.currentUser,
+      currentUser,
       e.target.username.value,
       e.target
     );
     if (!hasUsernameChanged) {
       setIsLoading(false);
     } else {
-      props.handleUsernameChange(e.target.username.value);
+      setUsername(e.target.username.value);
       navigate('/');
     }
   };
@@ -29,7 +31,7 @@ const Profile = (props) => {
   return (
     <StyledProfile>
       <h3>User Settings</h3>
-      <Form onSubmit={setUsername}>
+      <Form onSubmit={handleSubmit}>
         <Label htmlFor="username">CHANGE YOUR USERNAME</Label>
         <Input type="text" id="username" name="username" />
         {!isLoading ? <Button type="submit">Save</Button> : <Loader />}
