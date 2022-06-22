@@ -124,4 +124,16 @@ const PostCard = styled(StyledCard)`
   }
 `;
 
-export { StyledCard, StyledCardSidebar, StyledCardTop, PostCard };
+const CardContainer = styled.div`
+  max-height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;
+
+export {
+  StyledCard,
+  StyledCardSidebar,
+  StyledCardTop,
+  PostCard,
+  CardContainer,
+};
