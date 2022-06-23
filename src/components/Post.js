@@ -15,6 +15,7 @@ import PostView from './PostView';
 import Comments from './Comments';
 import CommentBox from './CommentBox';
 import { useAuth } from '../AuthContext';
+import Loader from './Loader';
 
 const Post = (props) => {
   const params = useParams();
@@ -25,6 +26,7 @@ const Post = (props) => {
   const [commentToReply, setCommentToReply] = useState(null);
   const [commentBox, toggleCommentBox] = useState(false);
   const [documentReference, setDocumentReference] = useState(null);
+  const [isLoading, toggleLoading] = useState(false);
   const { currentUser } = useAuth();
   const db = getFirestore();
   const colRef = collection(db, 'subs');
@@ -64,7 +66,6 @@ const Post = (props) => {
         await getPost(docRef);
         console.log(docRef);
       }
-      console.log(postInfo);
       //Get the comments and replies of the post.
       await getComments(db, docRef);
     };
@@ -129,6 +130,7 @@ const Post = (props) => {
     try {
       e.preventDefault();
       if (!value) return;
+      toggleLoading(true);
       const postRef = collection(documentReference, 'comments');
       const submitted = await addDoc(postRef, {
         author: currentUser.displayName,
@@ -151,6 +153,8 @@ const Post = (props) => {
   const submitReply = async (e, value, path) => {
     try {
       e.preventDefault();
+      toggleLoading(true);
+
       const commentRef = collection(db, path, 'comments');
 
       const submitted = await addDoc(commentRef, {
@@ -174,7 +178,9 @@ const Post = (props) => {
   return (
     <div>
       <PostView post={postInfo} />
-      {currentUser ? <CommentBox submitComment={submitComment} /> : null}
+      {currentUser ? (
+        <CommentBox submitComment={submitComment} isLoading={isLoading} />
+      ) : null}
       <Comments
         comments={comments}
         status={commentStatus}
@@ -183,6 +189,7 @@ const Post = (props) => {
         hideCommentBox={hideCommentBox}
         commentToReply={commentToReply}
         submitReply={submitReply}
+        isLoading={isLoading}
       />
     </div>
   );

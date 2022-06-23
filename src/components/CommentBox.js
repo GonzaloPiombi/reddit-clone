@@ -4,8 +4,15 @@ import {
 } from './styles/CommentBox.styled';
 import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 import { useAuth } from '../AuthContext';
+import Loader from './Loader';
 
-const CommentBox = ({ hideCommentBox, submitComment, submitReply, path }) => {
+const CommentBox = ({
+  hideCommentBox,
+  submitComment,
+  submitReply,
+  path,
+  isLoading,
+}) => {
   const { currentUsername } = useAuth();
 
   return (
@@ -21,12 +28,16 @@ const CommentBox = ({ hideCommentBox, submitComment, submitReply, path }) => {
         }
       >
         <StyledCommentBox name="content" required></StyledCommentBox>
-        <ButtonContainer>
-          <AltButton type="button" onClick={hideCommentBox}>
-            Cancel
-          </AltButton>
-          <Button type="submit">Post</Button>
-        </ButtonContainer>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <ButtonContainer>
+            <AltButton type="button" onClick={hideCommentBox}>
+              Cancel
+            </AltButton>
+            <Button type="submit">Post</Button>
+          </ButtonContainer>
+        )}
       </form>
     </CommentBoxContainer>
   );

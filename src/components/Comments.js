@@ -21,6 +21,7 @@ const Comments = ({
   commentToReply,
   hideCommentBox,
   submitReply,
+  isLoading,
 }) => {
   const [showReplies, setShowReplies] = useState(false);
   const { currentUser } = useAuth();
@@ -35,6 +36,7 @@ const Comments = ({
         commentBox={commentBox}
         commentToReply={commentToReply}
         submitReply={submitReply}
+        isLoading={isLoading}
       />
     );
   };
@@ -109,6 +111,7 @@ const Comments = ({
                   hideCommentBox={hideCommentBox}
                   submitReply={submitReply}
                   path={comment.path}
+                  isLoading={isLoading}
                 ></CommentBox>
               )}
               {comment.replies.length > 0 && showReplies && (
