@@ -43,7 +43,7 @@ const SignIn = (props) => {
     <Modal>
       <StyledSignInUp>
         <div>
-          <img src="./images/signform.png" alt="Sign in/up form art" />
+          <img src="/images/signform.png" alt="Sign in/up form art" />
         </div>
         <div>
           <h3>Sign In</h3>
