@@ -6,6 +6,10 @@ import {
   getDocs,
   getDoc,
   doc,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  increment,
 } from '@firebase/firestore';
 import PostView from './PostView';
 import Comments from './Comments';
@@ -21,6 +25,7 @@ const Post = (props) => {
   const [commentToReply, setCommentToReply] = useState(null);
   const [commentBox, toggleCommentBox] = useState(false);
   const { currentUser } = useAuth();
+  const db = getFirestore();
 
   const findSubredditID = async (colRef) => {
     const snapshot = await getDocs(colRef);
@@ -42,7 +47,6 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    const db = getFirestore();
     const colRef = collection(db, 'subs');
     const getPostAndComments = async () => {
       //Get the subreddit id to make the queries for the post and comments.
@@ -55,6 +59,7 @@ const Post = (props) => {
         await getPost(docRef);
         console.log(docRef);
       }
+      console.log(postInfo);
       //Get the comments and replies of the post.
       await getComments(db, docRef);
     };
@@ -105,10 +110,40 @@ const Post = (props) => {
     toggleCommentBox(false);
   };
 
+  const submitComment = async (e, value) => {
+    try {
+      e.preventDefault();
+      const colRef = collection(db, 'subs');
+      const subredditID = await findSubredditID(colRef);
+      const docRef = doc(colRef, subredditID, 'posts', params.id);
+      const postRef = collection(
+        colRef,
+        subredditID,
+        'posts',
+        params.id,
+        'comments'
+      );
+      const submited = await addDoc(postRef, {
+        author: currentUser.displayName,
+        content: value,
+        date: serverTimestamp(),
+        votes: 0,
+      });
+      if (submited) {
+        updateDoc(docRef, {
+          comments: increment(1),
+        });
+      }
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <PostView post={postInfo} />
-      {currentUser ? <CommentBox /> : null}
+      {currentUser ? <CommentBox submitComment={submitComment} /> : null}
       <Comments
         comments={comments}
         status={commentStatus}
