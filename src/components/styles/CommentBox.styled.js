@@ -20,6 +20,10 @@ const CommentBoxContainer = styled(Container)`
     width: 600px;
     justify-content: flex-end;
   }
+
+  & form > div {
+    justify-content: flex-end;
+  }
 `;
 
 const StyledCommentBox = styled.textarea`
