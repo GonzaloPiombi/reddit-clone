@@ -15,7 +15,6 @@ import PostView from './PostView';
 import Comments from './Comments';
 import CommentBox from './CommentBox';
 import { useAuth } from '../AuthContext';
-import Loader from './Loader';
 
 const Post = (props) => {
   const params = useParams();
