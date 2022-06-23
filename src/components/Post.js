@@ -24,7 +24,6 @@ const Post = (props) => {
   const [commentStatus, toggleStatus] = useState(false);
   const [commentToReply, setCommentToReply] = useState(null);
   const [commentBox, toggleCommentBox] = useState(false);
-  const [subID, setSubID] = useState(null);
   const [documentReference, setDocumentReference] = useState(null);
   const { currentUser } = useAuth();
   const db = getFirestore();
@@ -56,7 +55,6 @@ const Post = (props) => {
       const docRef = doc(colRef, subredditID, 'posts', params.id);
 
       //Save them in state to use in other functions later when creating comments.
-      setSubID(subredditID);
       setDocumentReference(docRef);
 
       //Check if we are coming from the Card component or redirecting from creating a post and setPostInfo accordingly.
