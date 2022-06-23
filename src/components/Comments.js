@@ -20,6 +20,7 @@ const Comments = ({
   commentBox,
   commentToReply,
   hideCommentBox,
+  submitReply,
 }) => {
   const [showReplies, setShowReplies] = useState(false);
   const { currentUser } = useAuth();
@@ -33,6 +34,7 @@ const Comments = ({
         hideCommentBox={hideCommentBox}
         commentBox={commentBox}
         commentToReply={commentToReply}
+        submitReply={submitReply}
       />
     );
   };
@@ -103,7 +105,11 @@ const Comments = ({
                 </div>
               </div>
               {commentBox && comment.id === commentToReply && currentUser && (
-                <CommentBox hideCommentBox={hideCommentBox}></CommentBox>
+                <CommentBox
+                  hideCommentBox={hideCommentBox}
+                  submitReply={submitReply}
+                  path={comment.path}
+                ></CommentBox>
               )}
               {comment.replies.length > 0 && showReplies && (
                 <ShowRepliesButton onClick={growReplies}>

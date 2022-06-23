@@ -24,10 +24,13 @@ const Post = (props) => {
   const [commentStatus, toggleStatus] = useState(false);
   const [commentToReply, setCommentToReply] = useState(null);
   const [commentBox, toggleCommentBox] = useState(false);
+  const [subID, setSubID] = useState(null);
+  const [documentReference, setDocumentReference] = useState(null);
   const { currentUser } = useAuth();
   const db = getFirestore();
+  const colRef = collection(db, 'subs');
 
-  const findSubredditID = async (colRef) => {
+  const findSubredditID = async () => {
     const snapshot = await getDocs(colRef);
     const subreddit = snapshot.docs.find((doc) => {
       return doc.data().name === params.subreddit;
@@ -47,11 +50,15 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    const colRef = collection(db, 'subs');
     const getPostAndComments = async () => {
       //Get the subreddit id to make the queries for the post and comments.
-      const subredditID = await findSubredditID(colRef);
+      const subredditID = await findSubredditID();
       const docRef = doc(colRef, subredditID, 'posts', params.id);
+
+      //Save them in state to use in other functions later when creating comments.
+      setSubID(subredditID);
+      setDocumentReference(docRef);
+
       //Check if we are coming from the Card component or redirecting from creating a post and setPostInfo accordingly.
       if (info) {
         setPostInfo(() => info);
@@ -77,7 +84,12 @@ const Post = (props) => {
       await Promise.all(
         commentsSnapshot.docs.map(async (doc) => {
           let replies = await getReplies(db, doc.ref.path);
-          postData.push({ ...doc.data(), id: doc.id, replies: replies });
+          postData.push({
+            ...doc.data(),
+            id: doc.id,
+            replies: replies,
+            path: doc.ref.path,
+          });
         })
       );
       setComments(postData);
@@ -95,7 +107,12 @@ const Post = (props) => {
     await Promise.all(
       subCommentsSnapshot.docs.map(async (doc) => {
         let replies = await getReplies(db, doc.ref.path);
-        subComments.push({ ...doc.data(), id: doc.id, replies: replies });
+        subComments.push({
+          ...doc.data(),
+          id: doc.id,
+          replies: replies,
+          path: doc.ref.path,
+        });
       })
     );
     return subComments;
@@ -114,25 +131,39 @@ const Post = (props) => {
     try {
       e.preventDefault();
       if (!value) return;
-
-      const colRef = collection(db, 'subs');
-      const subredditID = await findSubredditID(colRef);
-      const docRef = doc(colRef, subredditID, 'posts', params.id);
-      const postRef = collection(
-        colRef,
-        subredditID,
-        'posts',
-        params.id,
-        'comments'
-      );
-      const submited = await addDoc(postRef, {
+      const postRef = collection(documentReference, 'comments');
+      const submitted = await addDoc(postRef, {
         author: currentUser.displayName,
         content: value,
         date: serverTimestamp(),
         votes: 0,
       });
-      if (submited) {
-        updateDoc(docRef, {
+
+      if (submitted) {
+        updateDoc(documentReference, {
+          comments: increment(1),
+        });
+      }
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const submitReply = async (e, value, path) => {
+    try {
+      e.preventDefault();
+      const commentRef = collection(db, path, 'comments');
+
+      const submitted = await addDoc(commentRef, {
+        author: currentUser.displayName,
+        content: value,
+        date: serverTimestamp(),
+        votes: 0,
+      });
+
+      if (submitted) {
+        updateDoc(documentReference, {
           comments: increment(1),
         });
       }
@@ -153,6 +184,7 @@ const Post = (props) => {
         showCommentBox={showCommentBox}
         hideCommentBox={hideCommentBox}
         commentToReply={commentToReply}
+        submitReply={submitReply}
       />
     </div>
   );

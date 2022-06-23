@@ -5,7 +5,7 @@ import {
 import { Button, AltButton, ButtonContainer } from './styles/Button.styled';
 import { useAuth } from '../AuthContext';
 
-const CommentBox = ({ hideCommentBox, submitComment }) => {
+const CommentBox = ({ hideCommentBox, submitComment, submitReply, path }) => {
   const { currentUsername } = useAuth();
 
   return (
@@ -13,7 +13,13 @@ const CommentBox = ({ hideCommentBox, submitComment }) => {
       <div>
         <h5>Comment as {currentUsername}</h5>
       </div>
-      <form onSubmit={(e) => submitComment(e, e.target.content.value)}>
+      <form
+        onSubmit={
+          submitReply
+            ? (e) => submitReply(e, e.target.content.value, path)
+            : (e) => submitComment(e, e.target.content.value)
+        }
+      >
         <StyledCommentBox name="content" required></StyledCommentBox>
         <ButtonContainer>
           <AltButton type="button" onClick={hideCommentBox}>
