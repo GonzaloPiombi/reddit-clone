@@ -11,7 +11,7 @@ const PostView = ({ post }) => {
         <CardTop author={post.author} date={post.date} subName={post.subName} />
         <h1>{post.title}</h1>
         <p>{post.content}</p>
-        <CardBottom />
+        <CardBottom comments={post.comments} />
       </PostCard>
     </div>
   );
