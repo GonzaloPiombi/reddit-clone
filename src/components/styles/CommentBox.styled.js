@@ -8,7 +8,7 @@ const CommentBoxContainer = styled(Container)`
   & button {
     display: block;
     font-size: 0.9rem;
-    margin: 0 15px 20px 0;
+    margin: 0 35px 20px 0;
     min-width: 0;
     padding: 4px 0px;
     width: 75px;

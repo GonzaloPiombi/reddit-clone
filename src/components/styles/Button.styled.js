@@ -33,7 +33,7 @@ const AltButton = styled(Button)`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   min-width: 300px;
 `;
 
