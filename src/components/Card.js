@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Card = (props) => {
   return props.posts.map(
-    ({ title, content, id, votes, date, author, subName }) => {
+    ({ title, content, id, votes, date, author, subName, comments }) => {
       return (
         <StyledCard key={id}>
           <CardSidebar votes={votes} />
@@ -21,12 +21,13 @@ const Card = (props) => {
               date: date.toDate(),
               author,
               subName,
+              comments,
             }}
           >
             <CardTop author={author} date={date.toDate()} subName={subName} />
             <h2>{title}</h2>
             <p>{content}</p>
-            <CardBottom />
+            <CardBottom comments={comments} />
           </Link>
         </StyledCard>
       );

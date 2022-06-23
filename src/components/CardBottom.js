@@ -1,7 +1,7 @@
-const CardBottom = () => {
+const CardBottom = ({ comments }) => {
   return (
     <div>
-      <p>$Comments$</p>
+      <p>{comments} Comments</p>
     </div>
   );
 };
