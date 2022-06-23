@@ -113,6 +113,8 @@ const Post = (props) => {
   const submitComment = async (e, value) => {
     try {
       e.preventDefault();
+      if (!value) return;
+
       const colRef = collection(db, 'subs');
       const subredditID = await findSubredditID(colRef);
       const docRef = doc(colRef, subredditID, 'posts', params.id);
