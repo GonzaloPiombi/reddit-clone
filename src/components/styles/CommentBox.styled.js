@@ -21,6 +21,16 @@ const CommentBoxContainer = styled(Container)`
     justify-content: flex-end;
   }
 
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  & form span {
+    margin-right: 40px;
+  }
+
   & form > div {
     justify-content: flex-end;
   }
