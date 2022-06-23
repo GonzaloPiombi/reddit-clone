@@ -14,10 +14,12 @@ const CommentBox = ({ hideCommentBox, submitComment }) => {
         <h5>Comment as {currentUsername}</h5>
       </div>
       <form onSubmit={(e) => submitComment(e, e.target.content.value)}>
-        <StyledCommentBox name="content"></StyledCommentBox>
+        <StyledCommentBox name="content" required></StyledCommentBox>
         <ButtonContainer>
-          <AltButton onClick={hideCommentBox}>Cancel</AltButton>
-          <Button>Post</Button>
+          <AltButton type="button" onClick={hideCommentBox}>
+            Cancel
+          </AltButton>
+          <Button type="submit">Post</Button>
         </ButtonContainer>
       </form>
     </CommentBoxContainer>
