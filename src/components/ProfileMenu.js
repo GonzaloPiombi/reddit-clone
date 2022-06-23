@@ -10,6 +10,7 @@ const ProfileMenu = (props) => {
   const handleClick = () => {
     props.onButtonClick();
     logout();
+    props.setSub('Home');
     navigate('/');
   };
 

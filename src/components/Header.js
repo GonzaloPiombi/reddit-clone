@@ -75,7 +75,10 @@ const Header = (props) => {
           )}
           {currentUser && <UserButton onButtonClick={handleUserButtonClick} />}
           {isUserButtonClicked && (
-            <ProfileMenu onButtonClick={handleUserButtonClick} />
+            <ProfileMenu
+              onButtonClick={handleUserButtonClick}
+              setSub={props.setSub}
+            />
           )}
         </div>
       </Nav>
