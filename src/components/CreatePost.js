@@ -32,6 +32,7 @@ const CreatePost = ({ subList }) => {
         title: e.target.title.value,
         content: e.target.text.value,
         votes: 0,
+        comments: 0,
         date: serverTimestamp(),
         subName: e.target.sublist[index].getAttribute('name'),
       });
