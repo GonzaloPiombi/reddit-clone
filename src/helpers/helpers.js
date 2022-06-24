@@ -41,11 +41,15 @@ const changeUsername = async (user, username, form) => {
 };
 
 const formatDate = (date) => {
-  const dateObj = date;
-  const day = dateObj.getUTCDate();
-  const month = dateObj.getUTCMonth();
-  const year = dateObj.getUTCFullYear();
-  const relativeTime = formatDistanceToNowStrict(new Date(year, month, day));
+  const seconds = date.getSeconds();
+  const minutes = date.getMinutes();
+  const hours = date.getHours();
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const relativeTime = formatDistanceToNowStrict(
+    new Date(year, month, day, hours, minutes, seconds)
+  );
   return relativeTime;
 };
 
