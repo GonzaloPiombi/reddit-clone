@@ -16,8 +16,9 @@ const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   const [currentUsername, setCurrentUsername] = useState('');
+  const [isloading, setLoading] = useState(true);
   const auth = getAuth();
 
   useEffect(() => {
@@ -26,9 +27,11 @@ const AuthProvider = ({ children }) => {
         console.log(user);
         setCurrentUser(user);
         setCurrentUsername(user.displayName);
+        setLoading(false);
       } else {
         setCurrentUser('');
         setCurrentUsername('');
+        setLoading(false);
       }
     });
 
@@ -59,6 +62,7 @@ const AuthProvider = ({ children }) => {
     setUsername,
     currentUser,
     currentUsername,
+    isloading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
