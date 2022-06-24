@@ -24,6 +24,7 @@ const Comments = ({
   isLoading,
 }) => {
   const [showReplies, setShowReplies] = useState(false);
+  const [collapsedComments, setCollapsedComments] = useState([]);
   const { currentUser } = useAuth();
 
   const renderReplies = (replies) => {
@@ -41,7 +42,8 @@ const Comments = ({
     );
   };
 
-  const shrinkReplies = (e) => {
+  const shrinkReplies = (e, id) => {
+    console.log(e.target.parentNode.parentNode, id);
     const parentComment = e.target.parentNode.parentNode;
     const hasReplies = [...parentComment.childNodes].find((child) =>
       child.classList.contains('replies')
@@ -49,13 +51,16 @@ const Comments = ({
 
     if (hasReplies) {
       hasReplies.classList.toggle('hidden');
-      setShowReplies(!showReplies);
+      setShowReplies(true);
+      setCollapsedComments(() => [...collapsedComments, id]);
     }
   };
 
-  const growReplies = (e) => {
+  const growReplies = (e, id) => {
     e.target.nextSibling.classList.remove('hidden');
-    setShowReplies(false);
+    setCollapsedComments(() =>
+      [...collapsedComments].filter((item) => item !== id)
+    );
   };
 
   if (!status) {
@@ -86,7 +91,10 @@ const Comments = ({
                   </div>
                   <p>{formatDate(comment.date.toDate())}</p>
                 </StyledCardTop>
-                <div className="thread-line" onClick={shrinkReplies}></div>
+                <div
+                  className="thread-line"
+                  onClick={(e) => shrinkReplies(e, comment.id)}
+                ></div>
                 <div className="container">
                   <div className="content">
                     <p>{comment.content}</p>
@@ -114,11 +122,15 @@ const Comments = ({
                   isLoading={isLoading}
                 ></CommentBox>
               )}
-              {comment.replies.length > 0 && showReplies && (
-                <ShowRepliesButton onClick={growReplies}>
-                  Show {comment.replies.length} Replies
-                </ShowRepliesButton>
-              )}
+              {comment.replies.length > 0 &&
+                showReplies &&
+                collapsedComments.includes(comment.id) && (
+                  <ShowRepliesButton
+                    onClick={(e) => growReplies(e, comment.id)}
+                  >
+                    Show {comment.replies.length} Replies
+                  </ShowRepliesButton>
+                )}
               {comment.replies.length > 0 ? (
                 <Replies className="replies">
                   {renderReplies(comment.replies)}
