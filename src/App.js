@@ -18,6 +18,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Profile from './components/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import CreateSub from './components/CreateSub';
 import Subreddit from './components/Subreddit';
 import Post from './components/Post';
@@ -166,8 +167,22 @@ function App() {
               path="/r/:subreddit/:id"
               element={<Post setSub={setSubName} />}
             />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/submit" element={<CreatePost subList={subList} />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/submit"
+              element={
+                <ProtectedRoute>
+                  <CreatePost subList={subList} />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
           {signUp && <SignUp showSignUpForm={showSignUpForm} />}
           {signIn && <SignIn showSignInForm={showSignInForm} />}
