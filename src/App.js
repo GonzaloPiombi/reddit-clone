@@ -40,7 +40,6 @@ function App() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        toggleLoading(true);
         const db = getFirestore();
         //Get every collection with the 'posts' name.
         const colRef = collectionGroup(db, 'posts');
@@ -64,7 +63,7 @@ function App() {
 
   const loadOnScroll = async () => {
     try {
-      if (latestDoc === undefined) return;
+      if (latestDoc === undefined) return toggleLoading(false);
       toggleLoading(true);
       const db = getFirestore();
       const colRef = collectionGroup(db, 'posts');
@@ -89,7 +88,9 @@ function App() {
   };
 
   const scroll = (e) => {
+    if (isLoading) return;
     if (e.target.scrollTop + e.target.offsetHeight >= e.target.scrollHeight) {
+      toggleLoading(true);
       loadOnScroll();
     }
   };
