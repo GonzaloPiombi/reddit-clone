@@ -31,13 +31,7 @@ const CreatePost = ({ subList }) => {
         author: currentUser.displayName,
         title: e.target.title.value,
         content: e.target.text.value,
-        //Cambiar valor para usar suma.
-        voteArray: [
-          {
-            uid: currentUser.uid,
-            vote: 1,
-          },
-        ],
+        votes: 0,
         comments: 0,
         date: serverTimestamp(),
         subName: e.target.sublist[index].getAttribute('name'),
