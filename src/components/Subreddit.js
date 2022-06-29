@@ -19,7 +19,12 @@ const Subreddit = (props) => {
         const postsSnapshot = await getDocs(postsRef);
         let data = [];
         postsSnapshot.docs.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id, subName: subName.subreddit });
+          data.push({
+            ...doc.data(),
+            id: doc.id,
+            subName: subName.subreddit,
+            path: doc.ref.path,
+          });
         });
         setPosts(data);
       } catch (error) {
