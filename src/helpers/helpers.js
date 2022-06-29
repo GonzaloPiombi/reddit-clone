@@ -5,6 +5,8 @@ import {
   getDocs,
   setDoc,
   doc,
+  addDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { formatDistanceToNowStrict } from 'date-fns';
 
@@ -53,4 +55,34 @@ const formatDate = (date) => {
   return relativeTime;
 };
 
-export { changeUsername, formatDate };
+const vote = async (path, uid, vote) => {
+  const db = getFirestore();
+  const colRef = collection(db, path, 'votes');
+  const snapshot = await getDocs(colRef);
+  const docSnapshot = snapshot.docs.find((doc) => doc.data().uid === uid);
+
+  if (docSnapshot) {
+    //Delete doc
+    const prevVote = docSnapshot.data().vote;
+    if ((prevVote === 1 && vote === -1) || (prevVote === -1 && vote === 1)) {
+      await deleteDoc(docSnapshot.ref);
+      await castVote(colRef, uid, vote);
+      return 'Success';
+    }
+    await deleteDoc(docSnapshot.ref);
+    return 'Success';
+  } else {
+    //Create doc
+    await castVote(colRef, uid, vote);
+    return 'Success';
+  }
+};
+
+const castVote = (colRef, uid, vote) => {
+  return addDoc(colRef, {
+    uid: uid,
+    vote: vote,
+  });
+};
+
+export { changeUsername, formatDate, castVote, vote };
