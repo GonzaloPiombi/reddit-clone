@@ -3,10 +3,13 @@ import {
   getFirestore,
   collection,
   getDocs,
+  getDoc,
   setDoc,
   doc,
   addDoc,
   deleteDoc,
+  updateDoc,
+  increment,
 } from 'firebase/firestore';
 import { formatDistanceToNowStrict } from 'date-fns';
 
@@ -58,23 +61,31 @@ const formatDate = (date) => {
 const vote = async (path, uid, vote) => {
   const db = getFirestore();
   const colRef = collection(db, path, 'votes');
+  const docRef = doc(db, path);
   const snapshot = await getDocs(colRef);
   const docSnapshot = snapshot.docs.find((doc) => doc.data().uid === uid);
 
   if (docSnapshot) {
-    //Delete doc
     const prevVote = docSnapshot.data().vote;
     if ((prevVote === 1 && vote === -1) || (prevVote === -1 && vote === 1)) {
       await deleteDoc(docSnapshot.ref);
       await castVote(colRef, uid, vote);
-      return 'Success';
+      updateDoc(docRef, {
+        votes: vote === 1 ? increment(2) : increment(-2),
+      });
+      return vote === 1 ? 1 : -1;
     }
     await deleteDoc(docSnapshot.ref);
-    return 'Success';
+    updateDoc(docRef, {
+      votes: vote === 1 ? increment(-1) : increment(1),
+    });
+    return 0;
   } else {
-    //Create doc
     await castVote(colRef, uid, vote);
-    return 'Success';
+    updateDoc(docRef, {
+      votes: vote === 1 ? increment(1) : increment(-1),
+    });
+    return vote;
   }
 };
 
