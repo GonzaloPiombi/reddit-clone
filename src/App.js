@@ -47,7 +47,7 @@ function App() {
         const snapshot = await getDocs(q);
         let data = [];
         snapshot.docs.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id });
+          data.push({ ...doc.data(), id: doc.id, path: doc.ref.path });
         });
         console.log(data);
         setLatesDoc(() => snapshot.docs[snapshot.docs.length - 1]);

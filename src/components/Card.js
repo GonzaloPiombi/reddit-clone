@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 
 const Card = (props) => {
   return props.posts.map(
-    ({ title, content, id, votes, date, author, subName, comments }) => {
+    ({ title, content, id, votes, date, author, subName, comments, path }) => {
       return (
         <StyledCard key={id}>
-          <CardSidebar votes={votes} />
+          <CardSidebar votes={votes} path={path} />
           <Link
             to={`/r/${subName}/${id}`}
             style={{ textDecoration: 'none', color: '#000' }}
@@ -22,6 +22,7 @@ const Card = (props) => {
               author,
               subName,
               comments,
+              path,
             }}
           >
             <CardTop author={author} date={date.toDate()} subName={subName} />
