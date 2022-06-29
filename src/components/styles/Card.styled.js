@@ -60,6 +60,14 @@ const StyledCardSidebar = styled.div`
     background-color: #ccc;
     color: #7193ff;
   }
+
+  & .up {
+    color: red;
+  }
+
+  & .down {
+    color: blue;
+  }
 `;
 
 const StyledCardTop = styled.div`
