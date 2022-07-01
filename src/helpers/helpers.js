@@ -3,7 +3,6 @@ import {
   getFirestore,
   collection,
   getDocs,
-  getDoc,
   setDoc,
   doc,
   addDoc,
@@ -67,20 +66,25 @@ const vote = async (path, uid, vote) => {
 
   if (docSnapshot) {
     const prevVote = docSnapshot.data().vote;
+    console.log(prevVote);
+    //Change vote from upvote to downvote or viceversa.
     if ((prevVote === 1 && vote === -1) || (prevVote === -1 && vote === 1)) {
       await deleteDoc(docSnapshot.ref);
       await castVote(colRef, uid, vote);
       updateDoc(docRef, {
         votes: vote === 1 ? increment(2) : increment(-2),
       });
-      return vote === 1 ? 1 : -1;
+      return vote === 1 ? 2 : -2;
     }
+    //Change vote from upvote to nothing or downvote to nothing.
     await deleteDoc(docSnapshot.ref);
     updateDoc(docRef, {
       votes: vote === 1 ? increment(-1) : increment(1),
     });
-    return 0;
+    return -prevVote;
   } else {
+    console.log('lala');
+    //Cast vote from nothing to upvote or downvote.
     await castVote(colRef, uid, vote);
     updateDoc(docRef, {
       votes: vote === 1 ? increment(1) : increment(-1),
