@@ -62,11 +62,11 @@ const StyledCardSidebar = styled.div`
   }
 
   & .up {
-    color: red;
+    color: #ff4500;
   }
 
   & .down {
-    color: blue;
+    color: #7193ff;
   }
 `;
 
