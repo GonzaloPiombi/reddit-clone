@@ -19,7 +19,7 @@ import { useAuth } from '../AuthContext';
 const Post = (props) => {
   const params = useParams();
   const info = useLocation().state;
-  const [postInfo, setPostInfo] = useState({});
+  const [postInfo, setPostInfo] = useState();
   const [comments, setComments] = useState([]);
   const [commentStatus, toggleStatus] = useState(false);
   const [commentToReply, setCommentToReply] = useState(null);
@@ -176,7 +176,7 @@ const Post = (props) => {
 
   return (
     <div>
-      <PostView post={postInfo} />
+      {postInfo && <PostView post={postInfo} />}
       {currentUser ? (
         <CommentBox submitComment={submitComment} isLoading={isLoading} />
       ) : null}
