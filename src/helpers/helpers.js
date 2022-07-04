@@ -66,7 +66,6 @@ const vote = async (path, uid, vote) => {
 
   if (docSnapshot) {
     const prevVote = docSnapshot.data().vote;
-    console.log(prevVote);
     //Change vote from upvote to downvote or viceversa.
     if ((prevVote === 1 && vote === -1) || (prevVote === -1 && vote === 1)) {
       await deleteDoc(docSnapshot.ref);
@@ -83,7 +82,6 @@ const vote = async (path, uid, vote) => {
     });
     return -prevVote;
   } else {
-    console.log('lala');
     //Cast vote from nothing to upvote or downvote.
     await castVote(colRef, uid, vote);
     updateDoc(docRef, {
