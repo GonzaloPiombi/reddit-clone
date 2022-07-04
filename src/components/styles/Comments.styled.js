@@ -32,6 +32,14 @@ const StyledComment = styled.div`
   & .content {
     margin: 2px 0 8px;
   }
+
+  & .up {
+    color: #ff4500;
+  }
+
+  & .down {
+    color: #7193ff;
+  }
 `;
 
 const StyledCommentBottom = styled.div`
