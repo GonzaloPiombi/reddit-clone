@@ -14,7 +14,6 @@ const CardSidebar = ({ votes, path }) => {
   useEffect(() => {
     const getVote = async () => {
       try {
-        console.log(votes, path);
         const db = getFirestore();
         const colRef = collection(db, path, 'votes');
         const snapshot = await getDocs(colRef);
