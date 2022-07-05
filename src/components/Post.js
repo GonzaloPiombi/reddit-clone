@@ -49,6 +49,7 @@ const Post = (props) => {
         ...post.data(),
         id: post.id,
         date: post.data().date.toDate(),
+        path: post.ref.path,
       };
     });
   };
