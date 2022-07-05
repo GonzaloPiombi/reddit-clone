@@ -15,6 +15,7 @@ import PostView from './PostView';
 import Comments from './Comments';
 import CommentBox from './CommentBox';
 import { useAuth } from '../AuthContext';
+import SortBar from './SortBar';
 
 const Post = (props) => {
   const params = useParams();
@@ -180,6 +181,7 @@ const Post = (props) => {
       {currentUser ? (
         <CommentBox submitComment={submitComment} isLoading={isLoading} />
       ) : null}
+      <SortBar comments={true} />
       <Comments
         comments={comments}
         status={commentStatus}
