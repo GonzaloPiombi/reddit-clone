@@ -10,6 +10,8 @@ import {
   serverTimestamp,
   updateDoc,
   increment,
+  query,
+  orderBy,
 } from '@firebase/firestore';
 import PostView from './PostView';
 import Comments from './Comments';
@@ -27,6 +29,7 @@ const Post = (props) => {
   const [commentBox, toggleCommentBox] = useState(false);
   const [documentReference, setDocumentReference] = useState(null);
   const [isLoading, toggleLoading] = useState(false);
+  const [commentOrder, setCommentOrder] = useState('votes');
   const { currentUser } = useAuth();
   const db = getFirestore();
   const colRef = collection(db, 'subs');
@@ -52,45 +55,53 @@ const Post = (props) => {
 
   useEffect(() => {
     const getPostAndComments = async () => {
-      //Get the subreddit id to make the queries for the post and comments.
-      const subredditID = await findSubredditID();
-      const docRef = doc(colRef, subredditID, 'posts', params.id);
+      //Check if the function was called for the first time already. If so just get the comments to reorder.
+      if (!documentReference) {
+        //Get the subreddit id to make the queries for the post and comments.
+        const subredditID = await findSubredditID();
+        const docRef = doc(colRef, subredditID, 'posts', params.id);
 
-      //Save them in state to use in other functions later when creating comments.
-      setDocumentReference(docRef);
+        //Save them in state to use in other functions later when creating comments.
+        setDocumentReference(docRef);
 
-      //Check if we are coming from the Card component or redirecting from creating a post and setPostInfo accordingly.
-      if (info) {
-        setPostInfo(() => info);
+        //Check if we are coming from the Card component or redirecting from creating a post and setPostInfo accordingly.
+        if (info) {
+          setPostInfo(() => info);
+        } else {
+          await getPost(docRef);
+          console.log(docRef);
+        }
+        //Get the comments and replies of the post.
+        await getComments(db, docRef);
+        props.setSub(params.subreddit);
       } else {
-        await getPost(docRef);
-        console.log(docRef);
+        await getComments(db, documentReference);
       }
-      //Get the comments and replies of the post.
-      await getComments(db, docRef);
     };
 
     getPostAndComments();
-    props.setSub(params.subreddit);
-  }, []);
+  }, [commentOrder]);
 
   const getComments = async (db, docRef) => {
     try {
       const postRef = collection(docRef, 'comments');
-
-      const commentsSnapshot = await getDocs(postRef);
+      const q = query(postRef, orderBy(`${commentOrder}`, 'desc'));
+      const commentsSnapshot = await getDocs(q);
       let postData = [];
+      commentsSnapshot.docs.forEach(async (doc) => {
+        postData.push({
+          ...doc.data(),
+          id: doc.id,
+          path: doc.ref.path,
+        });
+      });
       await Promise.all(
-        commentsSnapshot.docs.map(async (doc) => {
-          let replies = await getReplies(db, doc.ref.path);
-          postData.push({
-            ...doc.data(),
-            id: doc.id,
-            replies: replies,
-            path: doc.ref.path,
-          });
+        postData.map(async (item, i) => {
+          let replies = await getReplies(db, item.path);
+          postData[i] = { ...item, replies: replies };
         })
       );
+      console.log(postData);
       setComments(postData);
       toggleStatus(true);
     } catch (error) {
@@ -175,13 +186,17 @@ const Post = (props) => {
     }
   };
 
+  const setOrder = (value) => {
+    setCommentOrder(value);
+  };
+
   return (
     <div>
       {postInfo && <PostView post={postInfo} />}
       {currentUser ? (
         <CommentBox submitComment={submitComment} isLoading={isLoading} />
       ) : null}
-      <SortBar comments={true} />
+      <SortBar setOrder={setOrder} comments={true} />
       <Comments
         comments={comments}
         status={commentStatus}
