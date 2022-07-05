@@ -7,7 +7,7 @@ const StyledSortBar = styled.div`
   display: flex;
   max-height: 60px;
   max-width: 800px;
-  margin: ${(props) => (props.comments ? '0 auto 10px' : '75px auto 10px')};
+  margin: ${(props) => (props.comments ? '10px auto 10px' : '75px auto 10px')};
   padding: 8px 10px;
   width: 650px;
 
