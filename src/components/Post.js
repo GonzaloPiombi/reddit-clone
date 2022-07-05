@@ -102,7 +102,6 @@ const Post = (props) => {
           postData[i] = { ...item, replies: replies };
         })
       );
-      console.log(postData);
       setComments(postData);
       toggleStatus(true);
     } catch (error) {
