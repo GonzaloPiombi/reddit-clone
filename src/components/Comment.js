@@ -72,6 +72,7 @@ const Comment = ({
 
   const handleClick = async (value) => {
     try {
+      if (!currentUser) return;
       const newValue = await vote(comment.path, currentUser.uid, value);
       if (value === 1) {
         toggleUpvote(!upvote);

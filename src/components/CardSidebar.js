@@ -38,6 +38,7 @@ const CardSidebar = ({ votes, path }) => {
 
   const handleClick = async (value) => {
     try {
+      if (!currentUser) return;
       const newValue = await vote(path, currentUser.uid, value);
       if (value === 1) {
         toggleUpvote(!upvote);
