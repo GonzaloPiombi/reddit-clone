@@ -1,8 +1,8 @@
 import { StyledSortBar } from './styles/SortBar.styled';
 
-const SortBar = ({ setOrder }) => {
+const SortBar = ({ setOrder, comments }) => {
   return (
-    <StyledSortBar>
+    <StyledSortBar comments={comments ? true : false}>
       <div onClick={() => setOrder('date')}>
         <i className="las la-clock"></i>
         <p>New</p>
