@@ -152,7 +152,7 @@ function App() {
               path="/"
               element={
                 <CardContainer onScroll={(e) => scroll(e)}>
-                  <SortBar setOrder={setOrder} />
+                  <SortBar setOrder={setOrder} order={postOrder} />
                   <Card posts={posts} />
                   {isLoading ? (
                     <h2 style={{ textAlign: 'center' }}>Loading...</h2>

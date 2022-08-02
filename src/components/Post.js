@@ -196,7 +196,7 @@ const Post = (props) => {
       {currentUser ? (
         <CommentBox submitComment={submitComment} isLoading={isLoading} />
       ) : null}
-      <SortBar setOrder={setOrder} comments={true} />
+      <SortBar setOrder={setOrder} comments={true} order={commentOrder} />
       <Comments
         comments={comments}
         status={commentStatus}

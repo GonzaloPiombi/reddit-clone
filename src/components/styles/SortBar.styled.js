@@ -18,6 +18,7 @@ const StyledSortBar = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-right: 10px;
     width: 12%;
   }
 
@@ -27,6 +28,10 @@ const StyledSortBar = styled.div`
 
   & i {
     font-size: 1.5rem;
+  }
+
+  & .active {
+    background-color: #dbdbdb;
   }
 `;
 
