@@ -35,4 +35,21 @@ const StyledSignInUp = styled.div`
   }
 `;
 
-export { StyledSignInUp };
+const Redirect = styled.div`
+  display: flex;
+  margin-top: 20px;
+
+  & button {
+    background: none;
+    border: none;
+    color: #0079d3;
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  & button:hover {
+    color: #3394dc;
+  }
+`;
+
+export { StyledSignInUp, Redirect };
