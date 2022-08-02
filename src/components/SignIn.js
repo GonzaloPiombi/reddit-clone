@@ -57,7 +57,7 @@ const SignIn = (props) => {
           </Form>
           <Redirect>
             <p>New to Reddit?</p>
-            <button>SIGN UP</button>
+            <button onClick={props.toggleForms}>SIGN UP</button>
           </Redirect>
         </div>
         <div>

@@ -133,6 +133,11 @@ function App() {
     setPostOrder(value);
   };
 
+  const toggleBetweenForms = () => {
+    setSignUp(!signUp);
+    setSignIn(!signIn);
+  };
+
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -187,8 +192,18 @@ function App() {
               }
             />
           </Routes>
-          {signUp && <SignUp showSignUpForm={showSignUpForm} />}
-          {signIn && <SignIn showSignInForm={showSignInForm} />}
+          {signUp && (
+            <SignUp
+              showSignUpForm={showSignUpForm}
+              toggleForms={toggleBetweenForms}
+            />
+          )}
+          {signIn && (
+            <SignIn
+              showSignInForm={showSignInForm}
+              toggleForms={toggleBetweenForms}
+            />
+          )}
           {isCreateSub && <CreateSub toggleCreateSub={toggleCreateSub} />}
         </div>
       </AuthProvider>
