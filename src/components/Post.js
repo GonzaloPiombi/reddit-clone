@@ -129,6 +129,9 @@ const Post = (props) => {
   };
 
   const showCommentBox = (e) => {
+    if (!currentUser) {
+      props.showSignInForm();
+    }
     setCommentToReply(e.currentTarget.id);
     toggleCommentBox(true);
   };
@@ -192,7 +195,7 @@ const Post = (props) => {
 
   return (
     <div>
-      {postInfo && <PostView post={postInfo} />}
+      {postInfo && <PostView post={postInfo} signIn={props.showSignInForm} />}
       {currentUser ? (
         <CommentBox submitComment={submitComment} isLoading={isLoading} />
       ) : null}

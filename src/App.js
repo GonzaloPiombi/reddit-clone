@@ -153,7 +153,7 @@ function App() {
               element={
                 <CardContainer onScroll={(e) => scroll(e)}>
                   <SortBar setOrder={setOrder} order={postOrder} />
-                  <Card posts={posts} />
+                  <Card posts={posts} showSignInForm={showSignInForm} />
                   {isLoading ? (
                     <h2 style={{ textAlign: 'center' }}>Loading...</h2>
                   ) : null}
@@ -166,7 +166,9 @@ function App() {
             />
             <Route
               path="/r/:subreddit/:id"
-              element={<Post setSub={setSubName} />}
+              element={
+                <Post setSub={setSubName} showSignInForm={showSignInForm} />
+              }
             />
             <Route
               path="/profile"

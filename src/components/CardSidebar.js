@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { collection, getDocs, getFirestore } from '@firebase/firestore';
 
-const CardSidebar = ({ votes, path }) => {
+const CardSidebar = ({ votes, path, signIn }) => {
   const { currentUser } = useAuth();
   const [currentVotes, setVotes] = useState(() => votes);
   const [upvote, toggleUpvote] = useState();
@@ -38,7 +38,9 @@ const CardSidebar = ({ votes, path }) => {
 
   const handleClick = async (value) => {
     try {
-      if (!currentUser) return;
+      if (!currentUser) {
+        return signIn();
+      }
       const newValue = await vote(path, currentUser.uid, value);
       if (value === 1) {
         toggleUpvote(!upvote);

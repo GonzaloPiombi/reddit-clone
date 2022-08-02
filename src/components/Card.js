@@ -9,7 +9,11 @@ const Card = (props) => {
     ({ title, content, id, votes, date, author, subName, comments, path }) => {
       return (
         <StyledCard key={id}>
-          <CardSidebar votes={votes} path={path} />
+          <CardSidebar
+            votes={votes}
+            path={path}
+            signIn={props.showSignInForm}
+          />
           <Link
             to={`/r/${subName}/${id}`}
             style={{ textDecoration: 'none', color: '#000' }}

@@ -3,11 +3,11 @@ import CardTop from './CardTop';
 import CardBottom from './CardBottom';
 import { PostCard } from './styles/Card.styled';
 
-const PostView = ({ post }) => {
+const PostView = ({ post, signIn }) => {
   return (
     <div style={{ marginTop: '75px' }}>
       <PostCard>
-        <CardSidebar votes={post.votes} path={post.path} />
+        <CardSidebar votes={post.votes} path={post.path} signIn={signIn} />
         <CardTop author={post.author} date={post.date} subName={post.subName} />
         <h1>{post.title}</h1>
         <p>{post.content}</p>
