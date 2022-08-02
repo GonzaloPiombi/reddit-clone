@@ -1,7 +1,6 @@
 import { StyledSortBar } from './styles/SortBar.styled';
 
 const SortBar = ({ setOrder, comments, order }) => {
-  console.log(order);
   return (
     <StyledSortBar comments={comments ? true : false}>
       <div
