@@ -1,6 +1,6 @@
 import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
-import { StyledSignInUp } from './styles/SignInUp.styled';
+import { StyledSignInUp, Redirect } from './styles/SignInUp.styled';
 import { Form, Input, Label, ErrorMessage } from './styles/Form.styled';
 import { useAuth } from '../AuthContext';
 import { useState } from 'react';
@@ -55,6 +55,10 @@ const SignIn = (props) => {
             <ErrorMessage>{errorMessage}</ErrorMessage>
             {isLoading ? <Loader /> : <Button>Log In</Button>}
           </Form>
+          <Redirect>
+            <p>New to Reddit?</p>
+            <button>SIGN UP</button>
+          </Redirect>
         </div>
         <div>
           <button onClick={props.showSignInForm} className="close-button">

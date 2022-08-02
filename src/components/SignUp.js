@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from './styles/Button.styled';
 import Modal from './styles/Modal';
-import { StyledSignInUp } from './styles/SignInUp.styled';
+import { StyledSignInUp, Redirect } from './styles/SignInUp.styled';
 import Loader from './Loader';
 import { updateProfile } from '@firebase/auth';
 import { ErrorMessage, Form, Input, Label } from './styles/Form.styled';
@@ -101,6 +101,10 @@ const SignUp = (props) => {
               {!isLoading ? <Button type="submit">Sign Up</Button> : <Loader />}
             </Form>
           )}
+          <Redirect>
+            <p>Already a redditor?</p>
+            <button>LOG IN</button>
+          </Redirect>
         </div>
         <div>
           {!isSignedUp && (
