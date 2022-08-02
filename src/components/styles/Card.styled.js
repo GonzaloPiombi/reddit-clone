@@ -138,10 +138,39 @@ const CardContainer = styled.div`
   overflow-x: hidden;
 `;
 
+const StyledCardBottom = styled.button`
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: #878a8c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 5px 0 0 4px;
+  outline: none;
+  padding: 1px 3px;
+  width: fit-content;
+
+  & p {
+    margin: 0;
+    font-weight: 800;
+  }
+
+  & i {
+    font-size: 1.5rem;
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background-color: #dbdbdb;
+  }
+`;
+
 export {
   StyledCard,
   StyledCardSidebar,
   StyledCardTop,
   PostCard,
   CardContainer,
+  StyledCardBottom,
 };

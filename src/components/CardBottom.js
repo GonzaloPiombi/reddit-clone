@@ -1,8 +1,11 @@
+import { StyledCardBottom } from './styles/Card.styled';
+
 const CardBottom = ({ comments }) => {
   return (
-    <div>
+    <StyledCardBottom>
+      <i className="las la-comment-alt"></i>
       <p>{comments} Comments</p>
-    </div>
+    </StyledCardBottom>
   );
 };
 
