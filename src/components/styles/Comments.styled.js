@@ -3,7 +3,7 @@ import Container from './Container.styled';
 
 const StyledCommentSection = styled(Container)`
   & div {
-    padding-left: 4px;
+    padding-left: 5px;
     width: 100%;
   }
 `;
@@ -15,9 +15,8 @@ const StyledComment = styled.div`
   & .thread-line {
     border-left: solid 2px #d7d7d7;
     cursor: pointer;
-    height: 50px;
     margin-left: 6px;
-    position: absolute;
+    min-height: 45px;
     width: 10px;
   }
 
@@ -26,7 +25,13 @@ const StyledComment = styled.div`
   }
 
   & .container {
-    margin-left: 10px;
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  & .container > div {
+    padding: 0;
   }
 
   & .content {
