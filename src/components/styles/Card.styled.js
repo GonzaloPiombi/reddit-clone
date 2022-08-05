@@ -25,6 +25,14 @@ const StyledCard = styled(Container)`
   &:hover {
     border: 1px solid #9f9f9f;
   }
+
+  & .link-replace {
+    color: #0074cc;
+  }
+
+  & .link-replace:hover {
+    text-decoration: underline;
+  }
 `;
 
 const StyledCardSidebar = styled.div`
