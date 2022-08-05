@@ -7,7 +7,7 @@ import AddHttps from './AddHttps';
 
 const PostView = ({ post, signIn }) => {
   return (
-    <div style={{ marginTop: '75px' }}>
+    <div>
       <PostCard>
         <CardSidebar votes={post.votes} path={post.path} signIn={signIn} />
         <CardTop author={post.author} date={post.date} subName={post.subName} />
