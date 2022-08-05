@@ -50,6 +50,17 @@ const StyledProfileMenu = styled.div`
     font-size: 1.7rem;
     margin-right: 10px;
   }
+
+  &.create {
+    right: 40px;
+  }
+
+  @media (max-width: 600px) {
+    &.create {
+      top: 95px;
+      right: 10px;
+    }
+  }
 `;
 
 const StyledSubMenu = styled(StyledProfileMenu)`
@@ -72,6 +83,12 @@ const StyledSubMenu = styled(StyledProfileMenu)`
 
   & a:hover {
     background-color: #0000000a;
+  }
+
+  @media (max-width: 600px) {
+    top: 92px;
+    left: 20px;
+    border-top: 1px solid #ccc;
   }
 `;
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const CreateMenu = ({ toggleCreateSub, handleCreateButtonClick }) => {
   return (
-    <StyledProfileMenu style={{ right: '40px' }}>
+    <StyledProfileMenu className="create">
       <button onClick={handleCreateButtonClick}>
         <Link
           to="/submit"
