@@ -6,6 +6,11 @@ const StyledCommentSection = styled(Container)`
     padding-left: 5px;
     width: 100%;
   }
+
+  & img {
+    max-height: 350px;
+    max-width: 350px;
+  }
 `;
 
 const StyledComment = styled.div`
