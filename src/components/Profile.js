@@ -33,7 +33,7 @@ const Profile = (props) => {
       <h3>User Settings</h3>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor="username">CHANGE YOUR USERNAME</Label>
-        <Input type="text" id="username" name="username" />
+        <Input type="text" id="username" name="username" autoComplete="off" />
         {!isLoading ? <Button type="submit">Save</Button> : <Loader />}
       </Form>
     </StyledProfile>
