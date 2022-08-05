@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { getFirestore, collection, getDocs } from '@firebase/firestore';
 import Card from './Card';
+import { Wrapper } from './styles/Card.styled';
 
 const Subreddit = (props) => {
   const subName = useParams();
@@ -36,9 +37,9 @@ const Subreddit = (props) => {
     getPosts();
   }, [subName]);
   return (
-    <div style={{ marginTop: '75px' }}>
+    <Wrapper>
       <Card posts={posts} />;
-    </div>
+    </Wrapper>
   );
 };
 
