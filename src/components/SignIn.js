@@ -40,8 +40,8 @@ const SignIn = (props) => {
   };
 
   return (
-    <Modal>
-      <StyledSignInUp>
+    <Modal onClick={props.showSignInForm}>
+      <StyledSignInUp onClick={(e) => e.stopPropagation()}>
         <div>
           <img src="/images/signform.png" alt="Sign in/up form art" />
         </div>
