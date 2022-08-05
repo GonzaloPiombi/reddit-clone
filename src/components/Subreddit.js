@@ -38,7 +38,7 @@ const Subreddit = (props) => {
   }, [subName]);
   return (
     <Wrapper>
-      <Card posts={posts} />;
+      <Card posts={posts} />
     </Wrapper>
   );
 };
