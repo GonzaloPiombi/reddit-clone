@@ -183,6 +183,14 @@ const StyledCardBottom = styled.button`
   }
 `;
 
+const Wrapper = styled.div`
+  margin-top: 75px;
+
+  @media (max-width: 600px) {
+    margin-top: 120px;
+  }
+`;
+
 export {
   StyledCard,
   StyledCardSidebar,
@@ -190,4 +198,5 @@ export {
   PostCard,
   CardContainer,
   StyledCardBottom,
+  Wrapper,
 };
