@@ -34,6 +34,15 @@ const CommentBoxContainer = styled(Container)`
   & form > div {
     justify-content: flex-end;
   }
+
+  & h5 {
+    margin-left: 15px;
+    padding-top: 5px;
+  }
+
+  @media (max-width: 700px) {
+    width: 90vw;
+  }
 `;
 
 const StyledCommentBox = styled.textarea`
@@ -52,6 +61,10 @@ const StyledCommentBox = styled.textarea`
 
   &:focus {
     border: solid 1px #6c6c6c;
+  }
+
+  @media (max-width: 700px) {
+    width: 80vw;
   }
 `;
 

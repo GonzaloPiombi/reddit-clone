@@ -11,6 +11,10 @@ const StyledCommentSection = styled(Container)`
     max-height: 350px;
     max-width: 350px;
   }
+
+  @media (max-width: 700px) {
+    width: 90vw;
+  }
 `;
 
 const StyledComment = styled.div`

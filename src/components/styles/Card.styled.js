@@ -33,6 +33,10 @@ const StyledCard = styled(Container)`
   & .link-replace:hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 700px) {
+    width: 90vw;
+  }
 `;
 
 const StyledCardSidebar = styled.div`
@@ -119,6 +123,7 @@ const StyledCardTop = styled.div`
 const PostCard = styled(StyledCard)`
   border: solid 1px transparent;
   cursor: default;
+  margin-top: 75px;
 
   & > div {
     background-color: #fff;
@@ -137,6 +142,10 @@ const PostCard = styled(StyledCard)`
 
   &:hover {
     border: solid 1px transparent;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 120px;
   }
 `;
 
