@@ -33,6 +33,20 @@ const StyledSortBar = styled.div`
   & .active {
     background-color: #dbdbdb;
   }
+
+  @media (max-width: 700px) {
+    width: 90vw;
+
+    & > div {
+      min-width: 80px;
+      width: fit-content;
+    }
+  }
+
+  @media (max-width: 600px) {
+    margin: ${(props) =>
+      props.comments ? '10px auto 10px' : '120px auto 10px'};
+  }
 `;
 
 export { StyledSortBar };
