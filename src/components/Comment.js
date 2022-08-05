@@ -55,7 +55,8 @@ const Comment = ({
   }, [currentUser]);
 
   const shrinkReplies = (e) => {
-    const parentComment = e.currentTarget.parentNode.parentNode;
+    //This works but is not good, a change in the layout will break it.
+    const parentComment = e.currentTarget.parentNode.parentNode.parentNode;
     const hasReplies = [...parentComment.childNodes].find((child) =>
       child.classList.contains('replies')
     );
@@ -99,36 +100,34 @@ const Comment = ({
           </div>
           <p>{formatDate(comment.date.toDate())}</p>
         </StyledCardTop>
-        <div>
-          <div className="container">
-            <div
-              className="thread-line"
-              onClick={(e) => shrinkReplies(e, comment.id)}
-            ></div>
-            <div>
-              <div className="content">
-                <ReactMarkdown>{comment.content}</ReactMarkdown>
-              </div>
-              <StyledCommentBottom>
-                <button
-                  className={upvote ? 'up' : null}
-                  onClick={() => handleClick(1)}
-                >
-                  <i className="las la-caret-up"></i>
-                </button>
-                <p>{currentVotes}</p>
-                <button
-                  className={downvote ? 'down' : null}
-                  onClick={() => handleClick(-1)}
-                >
-                  <i className="las la-caret-down"></i>
-                </button>
-                <button id={comment.id} onClick={showCommentBox}>
-                  <i className="las la-comment-alt"></i>
-                  <p>Reply</p>
-                </button>
-              </StyledCommentBottom>
+        <div className="container">
+          <div
+            className="thread-line"
+            onClick={(e) => shrinkReplies(e, comment.id)}
+          ></div>
+          <div>
+            <div className="content">
+              <ReactMarkdown>{comment.content}</ReactMarkdown>
             </div>
+            <StyledCommentBottom>
+              <button
+                className={upvote ? 'up' : null}
+                onClick={() => handleClick(1)}
+              >
+                <i className="las la-caret-up"></i>
+              </button>
+              <p>{currentVotes}</p>
+              <button
+                className={downvote ? 'down' : null}
+                onClick={() => handleClick(-1)}
+              >
+                <i className="las la-caret-down"></i>
+              </button>
+              <button id={comment.id} onClick={showCommentBox}>
+                <i className="las la-comment-alt"></i>
+                <p>Reply</p>
+              </button>
+            </StyledCommentBottom>
           </div>
         </div>
       </div>
