@@ -11,6 +11,7 @@ import { useAuth } from '../AuthContext';
 import { useState, useEffect } from 'react';
 import { getFirestore, collection, getDocs } from '@firebase/firestore';
 import ReactMarkdown from 'react-markdown';
+import AddHttps from './AddHttps';
 
 const Comment = ({
   comment,
@@ -107,7 +108,13 @@ const Comment = ({
           ></div>
           <div>
             <div className="content">
-              <ReactMarkdown>{comment.content}</ReactMarkdown>
+              <ReactMarkdown
+                components={{
+                  a: ({ ...props }) => <AddHttps {...props} />,
+                }}
+              >
+                {comment.content}
+              </ReactMarkdown>
             </div>
             <StyledCommentBottom>
               <button
