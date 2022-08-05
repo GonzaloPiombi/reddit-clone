@@ -18,6 +18,7 @@ import Comments from './Comments';
 import CommentBox from './CommentBox';
 import { useAuth } from '../AuthContext';
 import SortBar from './SortBar';
+import { vote } from '../helpers/helpers';
 
 const Post = (props) => {
   const params = useParams();
@@ -158,6 +159,7 @@ const Post = (props) => {
           comments: increment(1),
         });
       }
+      await vote(`${postRef.path}/${submitted.id}`, currentUser.uid, 1);
       window.location.reload();
     } catch (error) {
       console.log(error.message);
@@ -183,6 +185,7 @@ const Post = (props) => {
           comments: increment(1),
         });
       }
+      await vote(`${commentRef.path}/${submitted.id}`, currentUser.uid, 1);
       window.location.reload();
     } catch (error) {
       console.log(error.message);

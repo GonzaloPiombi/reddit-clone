@@ -11,6 +11,7 @@ import Loader from './Loader';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../AuthContext';
+import { vote } from '../helpers/helpers';
 
 const CreatePost = ({ subList }) => {
   const [isSubmiting, toggleIsSubmitting] = useState(false);
@@ -36,6 +37,7 @@ const CreatePost = ({ subList }) => {
         date: serverTimestamp(),
         subName: e.target.sublist[index].getAttribute('name'),
       });
+      await vote(`${subColRef.path}/${docRef.id}`, currentUser.uid, 1);
       navigate(`../${e.target.sublist.value}/${docRef.id}`);
     } catch (error) {
       console.log(error.message);
