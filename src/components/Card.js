@@ -3,6 +3,7 @@ import CardTop from './CardTop';
 import CardBottom from './CardBottom';
 import { StyledCard } from './styles/Card.styled';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 const Card = (props) => {
   return props.posts.map(
@@ -31,7 +32,15 @@ const Card = (props) => {
           >
             <CardTop author={author} date={date.toDate()} subName={subName} />
             <h2>{title}</h2>
-            <p>{content}</p>
+            <ReactMarkdown
+              components={{
+                a: ({ ...props }) => (
+                  <span className="link-replace" {...props} />
+                ),
+              }}
+            >
+              {content}
+            </ReactMarkdown>
             <CardBottom comments={comments} />
           </Link>
         </StyledCard>
