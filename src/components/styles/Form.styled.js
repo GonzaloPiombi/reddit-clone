@@ -12,6 +12,14 @@ const Form = styled.form`
   & .valid {
     border-color: green;
   }
+
+  @media (max-width: 700px) {
+    max-width: 280px;
+    width: unset;
+    & > * {
+      width: 100%;
+    }
+  }
 `;
 
 const Input = styled.input`

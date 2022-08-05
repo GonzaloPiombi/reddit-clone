@@ -13,6 +13,11 @@ const StyledProfile = styled.div`
     flex-direction: column;
     width: 280px;
   }
+
+  @media (max-width: 600px) {
+    margin-top: 120px;
+    width: 95vw;
+  }
 `;
 
 const StyledProfileMenu = styled.div`
