@@ -73,6 +73,21 @@ const StyledCreateSub = styled.div`
   & .invalid {
     border-color: red;
   }
+
+  @media (max-width: 600px) {
+    width: 90vw;
+
+    & button {
+      margin-bottom: 5px;
+    }
+
+    & form > div:last-child {
+      display: flex;
+      flex-direction: column-reverse;
+      margin-top: 20px;
+      text-align: start;
+    }
+  }
 `;
 
 export { StyledCreateSub };
