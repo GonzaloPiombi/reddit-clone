@@ -61,7 +61,7 @@ const CreatePost = ({ subList }) => {
           <CreatePostBox
             name="text"
             type="text"
-            placeholder="Text"
+            placeholder="Text - Markdown is enabled!"
           ></CreatePostBox>
         </div>
         {isSubmiting ? (

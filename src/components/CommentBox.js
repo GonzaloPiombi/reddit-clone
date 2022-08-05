@@ -27,7 +27,11 @@ const CommentBox = ({
             : (e) => submitComment(e, e.target.content.value)
         }
       >
-        <StyledCommentBox name="content" required></StyledCommentBox>
+        <StyledCommentBox
+          name="content"
+          required
+          placeholder="Markdown is enabled!"
+        ></StyledCommentBox>
         {isLoading ? (
           <Loader />
         ) : (
