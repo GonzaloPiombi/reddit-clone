@@ -10,6 +10,7 @@ import CommentBox from './CommentBox';
 import { useAuth } from '../AuthContext';
 import { useState, useEffect } from 'react';
 import { getFirestore, collection, getDocs } from '@firebase/firestore';
+import ReactMarkdown from 'react-markdown';
 
 const Comment = ({
   comment,
@@ -98,33 +99,37 @@ const Comment = ({
           </div>
           <p>{formatDate(comment.date.toDate())}</p>
         </StyledCardTop>
-        <div
-          className="thread-line"
-          onClick={(e) => shrinkReplies(e, comment.id)}
-        ></div>
-        <div className="container">
-          <div className="content">
-            <p>{comment.content}</p>
+        <div>
+          <div className="container">
+            <div
+              className="thread-line"
+              onClick={(e) => shrinkReplies(e, comment.id)}
+            ></div>
+            <div>
+              <div className="content">
+                <ReactMarkdown>{comment.content}</ReactMarkdown>
+              </div>
+              <StyledCommentBottom>
+                <button
+                  className={upvote ? 'up' : null}
+                  onClick={() => handleClick(1)}
+                >
+                  <i className="las la-caret-up"></i>
+                </button>
+                <p>{currentVotes}</p>
+                <button
+                  className={downvote ? 'down' : null}
+                  onClick={() => handleClick(-1)}
+                >
+                  <i className="las la-caret-down"></i>
+                </button>
+                <button id={comment.id} onClick={showCommentBox}>
+                  <i className="las la-comment-alt"></i>
+                  <p>Reply</p>
+                </button>
+              </StyledCommentBottom>
+            </div>
           </div>
-          <StyledCommentBottom>
-            <button
-              className={upvote ? 'up' : null}
-              onClick={() => handleClick(1)}
-            >
-              <i className="las la-caret-up"></i>
-            </button>
-            <p>{currentVotes}</p>
-            <button
-              className={downvote ? 'down' : null}
-              onClick={() => handleClick(-1)}
-            >
-              <i className="las la-caret-down"></i>
-            </button>
-            <button id={comment.id} onClick={showCommentBox}>
-              <i className="las la-comment-alt"></i>
-              <p>Reply</p>
-            </button>
-          </StyledCommentBottom>
         </div>
       </div>
       {commentBox && comment.id === commentToReply && currentUser && (
