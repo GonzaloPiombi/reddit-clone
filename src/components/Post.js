@@ -71,7 +71,6 @@ const Post = (props) => {
           setPostInfo(() => info);
         } else {
           await getPost(docRef);
-          console.log(docRef);
         }
         //Get the comments and replies of the post.
         await getComments(db, docRef);
