@@ -15,6 +15,10 @@ const CommentBox = ({
 }) => {
   const { currentUsername } = useAuth();
 
+  const deleteComment = (e) => {
+    e.target.parentNode.previousSibling.value = '';
+  };
+
   return (
     <CommentBoxContainer>
       <div>
@@ -36,7 +40,10 @@ const CommentBox = ({
           <Loader />
         ) : (
           <AltButtonContainer>
-            <AltButton type="button" onClick={hideCommentBox}>
+            <AltButton
+              type="button"
+              onClick={hideCommentBox ? hideCommentBox : deleteComment}
+            >
               Cancel
             </AltButton>
             <Button type="submit">Post</Button>
