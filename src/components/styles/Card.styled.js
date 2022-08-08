@@ -34,6 +34,12 @@ const StyledCard = styled(Container)`
     text-decoration: underline;
   }
 
+  & img {
+    display: block;
+    max-height: 500px;
+    max-width: 100%;
+  }
+
   @media (max-width: 700px) {
     width: 90vw;
   }
