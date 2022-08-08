@@ -33,6 +33,18 @@ const StyledSignInUp = styled.div`
     top: 5px;
     right: 5px;
   }
+
+  @media (max-width: 500px) {
+    width: 95vw;
+
+    & img {
+      width: 20vw;
+    }
+
+    & > div:nth-child(2) {
+      margin: 50px 10px 0;
+    }
+  }
 `;
 
 const Redirect = styled.div`
@@ -49,6 +61,16 @@ const Redirect = styled.div`
 
   & button:hover {
     color: #3394dc;
+  }
+
+  @media (max-width: 300px) {
+    & p {
+      font-size: 0.9rem;
+    }
+
+    & button {
+      font-size: 0.8rem;
+    }
   }
 `;
 
