@@ -46,6 +46,10 @@ const Select = styled.select`
   outline: none;
   padding: 0 4px;
   width: 225px;
+
+  @media (max-width: 300px) {
+    width: 95%;
+  }
 `;
 
 const ErrorMessage = styled.p`
