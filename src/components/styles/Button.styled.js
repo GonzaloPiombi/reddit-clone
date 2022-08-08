@@ -35,6 +35,34 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   min-width: 300px;
+
+  @media (max-width: 700px) {
+    min-width: 225px;
+
+    & button {
+      font-size: 0.8rem;
+      min-width: 80px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 100px;
+
+    & button {
+      width: 50%;
+    }
+  }
 `;
 
-export { Button, AltButton, ButtonContainer };
+const AltButtonContainer = styled(ButtonContainer)`
+  flex-direction: row;
+
+  & button {
+    font-size: 0.9rem;
+  }
+`;
+
+export { Button, AltButton, ButtonContainer, AltButtonContainer };
