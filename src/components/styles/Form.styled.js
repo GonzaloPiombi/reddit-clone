@@ -16,7 +16,7 @@ const Form = styled.form`
   @media (max-width: 700px) {
     max-width: 280px;
     width: unset;
-    & > * {
+    & > *:not(span) {
       width: 100%;
     }
   }
