@@ -13,6 +13,7 @@ const StyledCreatePost = styled.div`
   & form > div {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 20px;
   }
 
@@ -44,11 +45,32 @@ const StyledCreatePost = styled.div`
     margin-left: auto;
     margin-right: 0;
   }
+
+  @media (max-width: 600px) {
+    margin-top: 120px;
+  }
+
+  @media (max-width: 800px) {
+    width: 90vw;
+
+    & input {
+      width: 95%;
+    }
+
+    & button {
+      margin-right: 30px;
+    }
+  }
 `;
 
 const CreatePostBox = styled(StyledCommentBox)`
   height: 200px;
   width: 720px;
+
+  @media (max-width: 800px) {
+    margin: 0;
+    width: 95%;
+  }
 `;
 
 export { StyledCreatePost, CreatePostBox };
