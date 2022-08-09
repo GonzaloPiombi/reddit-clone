@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Container from './Container.styled';
 
 const StyledCommentSection = styled(Container)`
+  margin-bottom: 50px;
+
   & div {
     padding-left: 5px;
     width: 100%;
