@@ -7,12 +7,14 @@ import { updateProfile } from '@firebase/auth';
 import { ErrorMessage, Form, Input, Label } from './styles/Form.styled';
 import { changeUsername } from '../helpers/helpers';
 import { useAuth } from '../AuthContext';
+import { useNavigate } from 'react-router';
 
 const SignUp = (props) => {
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const { signUp, currentUser } = useAuth();
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     try {
@@ -67,7 +69,7 @@ const SignUp = (props) => {
       if (!hasUsernameChanged) {
         setIsLoading(false);
       } else {
-        props.showSignUpForm();
+        navigate(0);
       }
     } catch (error) {
       setIsLoading(false);
