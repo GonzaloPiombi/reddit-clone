@@ -49,7 +49,6 @@ const CardSidebar = ({ votes, path, signIn }) => {
         toggleDownvote(!downvote);
         toggleUpvote(false);
       }
-      console.log(newValue);
       setVotes((prevValue) => prevValue + newValue);
     } catch (error) {
       console.log(error.message);

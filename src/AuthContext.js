@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         setCurrentUser(user);
         setCurrentUsername(user.displayName);
         setLoading(false);

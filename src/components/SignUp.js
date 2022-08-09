@@ -35,7 +35,6 @@ const SignUp = (props) => {
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
-      console.log(error.code);
       switch (error.code) {
         case 'auth/weak-password':
           setErrorMessage('Password should be at least 6 characters');

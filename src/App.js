@@ -49,7 +49,6 @@ function App() {
         snapshot.docs.forEach((doc) => {
           data.push({ ...doc.data(), id: doc.id, path: doc.ref.path });
         });
-        console.log(data);
         setLatesDoc(() => snapshot.docs[snapshot.docs.length - 1]);
         setPosts(data);
         toggleLoading(false);
@@ -78,7 +77,6 @@ function App() {
       snapshot.docs.forEach((doc) => {
         data.push({ ...doc.data(), id: doc.id, path: doc.ref.path });
       });
-      console.log(data);
       setLatesDoc(() => snapshot.docs[snapshot.docs.length - 1]);
       setPosts((prevPosts) => [...prevPosts].concat(data));
       toggleLoading(false);
